@@ -14,3 +14,11 @@ export const grantPuzzle = (boothToken, clientToken) => {
   })
 }
 
+export const getPuzzle = (clientToken) => {
+  return axios.get('/event/puzzle', {
+    params: {
+      ID: 12345
+    }
+  })
+}
+

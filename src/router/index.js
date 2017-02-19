@@ -23,6 +23,6 @@ export default new Router({
         }
       }
     },
-    { path: '/PuzzleList', component: PuzzleList }
+    { path: '/PuzzleList/:token', component: PuzzleList }
   ]
 })

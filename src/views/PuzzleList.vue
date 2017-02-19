@@ -2,41 +2,8 @@
   <div id='Dashboard'>
     <v-container fluid>
       <v-row>
-        <v-col xs12>
-          <v-card>
-            <v-card-text>
-              <h4 class="ma-0 text-xs-left">App 使用率</h4>
-              <p class="text-xs-center ma-0 mt-4">{{appUse+" / 100 - "+appUse+"%"}}</p>
-              <v-progress-linear v-model="appUse" class="ma-0 mb-4"></v-progress-linear>
-            </v-card-text>
-          </v-card>
-        </v-col>
-      </v-row>
-      <br>
-      <v-row>
-        <v-col xs12 md4>
-          <v-card>
-            <v-card-text>
-              <h4 class="ma-0 text-xs-left">App 使用率</h4>
-              <high-chart :options="defaultOption(CIData.attendees)" style="display: flex" idName="1"></high-chart>
-            </v-card-text>
-          </v-card>
-        </v-col>
-        <v-col xs12 md4>
-          <v-card>
-            <v-card-text>
-              <h4 class="ma-0 text-xs-left">App 使用率</h4>
-              <high-chart :options="defaultOption(CIData.attendees)" style="display: flex" idName="2"></high-chart>
-            </v-card-text>
-          </v-card>
-        </v-col>
-        <v-col xs12 md4>
-          <v-card>
-            <v-card-text>
-              <h4 class="ma-0 text-xs-left">App 使用率</h4>
-              <high-chart :options="defaultOption(CIData.attendees)" style="display: flex" idName="3"></high-chart>
-            </v-card-text>
-          </v-card>
+        <v-col lg2="lg2" md4="md4" xs6="xs6" v-for="(card,index) in cards" class="pa-2">
+          <puzzle :text="card.name"></puzzle>
         </v-col>
       </v-row>
     </v-container>
@@ -44,68 +11,25 @@
 </template>
 
 <script>
+  import * as api from '../modal/apiClient.js'
   export default {
     name: 'Dashboard',
     data() {
       return {
-        appUse: 45
+        data: null
       }
     },
     computed: {
-      CIData() {
-        return {
-          attendees: [
-            {
-              name: 'App報到',
-              y: 300
-            },
-            {
-              name: '人工報到',
-              y: 50
-            },
-            {
-              name: '未報到',
-              y: 100
-            }
-          ]
-        }
-      }
-    },
-    methods: {
-      // Overwriting base render method with actual data.
-      defaultOption(datas) {
-        return {
-          chart: {
-            type: 'pie',
-            spacing: [0, 0, 0, 0],
-            reflow: true
-          },
-          title: {
-            text: ''
-          },
-          plotOptions: {
-            series: {
-              dataLabels: {
-                enabled: true,
-                format: '{point.name}<br> {point.y:.1f}%',
-                distance: -30
-              }
-            }
-          },
-
-          tooltip: {
-            headerFormat: '',
-            pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y}</b><br/>'
-          },
-          series: [{
-            name: 'Brands',
-            colorByPoint: true,
-            data: datas
-          }]
-        }
+      cards: function(){
+        return this.data.puzzle;
       }
     },
     mounted() {
+      api.getPuzzle(this.$route.params.token).then((res)=>{
+        this.data = res.data;
+      }).catch((error)=>{
+        this.$vuetify.toast.create(...["發生錯誤", "bottom"])
+      })
     }
   }
 </script>
