@@ -37,6 +37,13 @@
       login(){
         
       }
+    },
+    mounted () {
+      if(this.$route.params.token!==undefined){
+        window.localStorage.setItem('token', this.$route.params.token);
+        this.$vuetify.toast.create(...["登入成功", "bottom"])
+        this.$router.replace("/AddPuzzle")
+      }
     }
   }
 </script>

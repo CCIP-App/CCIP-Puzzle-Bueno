@@ -1,23 +1,30 @@
 <template>
-  <div id='CheckIn'>
-    <qrcode-reader :enable="qrState" :width="320" :height="240" :noResult="true" title="QRCode Scanner" @OnSuccess="OnSuccess"></qrcode-reader>
+  <div id='AddPuzzle'>
+    <qrcode-reader :enable="qrState" :width="320" :height="240" :noResult="true" :title="boothName" subTitle="請掃描Qrcode!" @OnSuccess="OnSuccess"></qrcode-reader>
   </div>
 </template>
 
 <script>
-export default {
-  name: 'CheckIn',
-  data () {
-    return {
-      qrState:true
-    }
-  },
-  methods: {
-    OnSuccess(result){
-      window.alert(result)
+  import * as api from '../modal/apiClient.js'
+  export default {
+    name: 'AddPuzzle',
+    data() {
+      return {
+        boothName: "XXX",
+        qrState: true
+      }
+    },
+    methods: {
+      OnSuccess(result) {
+        api.grantPuzzle(window.localStorage.getItem('token'), result).then((res) => {
+          this.$vuetify.toast.create(...[res.data.status, "bottom"])
+        }).catch((error) => {
+          this.disabled = false;
+          this.$vuetify.toast.create(...[error.response.data.message, "bottom"])
+        })
+      }
     }
   }
-}
 </script>
 
 <style scoped>
