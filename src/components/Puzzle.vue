@@ -11,7 +11,7 @@
 <script>
 export default {
   name: 'Puzzle',
-  props: ["text","sum"]
+  props: ['text', 'sum']
 }
 </script>
 

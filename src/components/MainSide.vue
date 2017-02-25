@@ -8,31 +8,30 @@
     data() {
       return {
         items: [{
-            title: "Dashboard",
-            href: "/dashboard",
-            avatar: 'dashboard',
-          },
-          {
-            title: "CheckIn",
-            href: "/checkin",
-            avatar: 'check'
-          },
-          {
-            title: "Annoucement",
-            href: "/announcement",
-            avatar: 'announcement'
-          },
-          {
-            title: "PushNotification",
-            href: "/push",
-            avatar: 'notifications'
-          },
-          {
-            title: "Event",
-            href: "/event",
-            avatar: 'event'
-          }
-        ]
+          title: 'Dashboard',
+          href: '/dashboard',
+          avatar: 'dashboard'
+        },
+        {
+          title: 'CheckIn',
+          href: '/checkin',
+          avatar: 'check'
+        },
+        {
+          title: 'Annoucement',
+          href: '/announcement',
+          avatar: 'announcement'
+        },
+        {
+          title: 'PushNotification',
+          href: '/push',
+          avatar: 'notifications'
+        },
+        {
+          title: 'Event',
+          href: '/event',
+          avatar: 'event'
+        }]
       }
     }
   }

@@ -20,15 +20,15 @@
       }
     },
     computed: {
-      cards: function(){
-        return this.data.puzzle;
+      cards: function() {
+        return this.data.puzzle
       }
     },
     mounted() {
-      api.getPuzzle(this.$route.params.token).then((res)=>{
-        this.data = res.data;
-      }).catch((error)=>{
-        this.$vuetify.toast.create(...["發生錯誤", "bottom"])
+      api.getPuzzle(this.$route.params.token).then((res) => {
+        this.data = res.data
+      }).catch((error) => {
+        this.$vuetify.toast.create(...['發生錯誤', 'bottom'])
       })
     }
   }

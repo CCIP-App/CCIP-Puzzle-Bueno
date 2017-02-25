@@ -10,23 +10,19 @@
     name: 'AddPuzzle',
     data() {
       return {
-        boothName: "XXX",
+        boothName: 'XXX',
         qrState: true
       }
     },
     methods: {
       OnSuccess(result) {
         api.grantPuzzle(window.localStorage.getItem('token'), result).then((res) => {
-          this.$vuetify.toast.create(...[res.data.status, "bottom"])
+          this.$vuetify.toast.create(...[res.data.status, 'bottom'])
         }).catch((error) => {
-          this.disabled = false;
-          this.$vuetify.toast.create(...[error.response.data.message, "bottom"])
+          this.disabled = false
+          this.$vuetify.toast.create(...[error.response.data.message, 'bottom'])
         })
       }
     }
   }
 </script>
-
-<style scoped>
-
-</style>

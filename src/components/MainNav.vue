@@ -14,7 +14,7 @@
 
 <script>
   export default {
-    name: 'main-nav',
+    name: 'main-nav'
   }
 </script>
 <style lang="stylus" scoped>
