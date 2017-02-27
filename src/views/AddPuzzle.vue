@@ -1,6 +1,6 @@
 <template>
   <div id='AddPuzzle'>
-    <qrcode-reader :enable="qrState" :width="320" :height="240" :noResult="true" :title="boothName" subTitle="請掃描Qrcode!" @OnSuccess="OnSuccess"></qrcode-reader>
+    <qrcode-reader :enable="qrState" width="320px" height="240px" :noResult="true" :title="boothName" subTitle="請掃描Qrcode!" @OnSuccess="OnSuccess"></qrcode-reader>
   </div>
 </template>
 
