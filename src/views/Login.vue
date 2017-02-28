@@ -24,6 +24,7 @@
 </template>
 
 <script>
+  import * as api from '../modal/apiClient.js'
   export default {
     name: 'Login',
     data() {
@@ -39,10 +40,16 @@
       }
     },
     mounted() {
-      if (this.$route.params.token !== undefined) {
-        window.localStorage.setItem('token', this.$route.params.token)
-        this.$vuetify.toast.create(...['登入成功', 'bottom'])
-        this.$router.replace('/AddPuzzle')
+      var self = this
+      if (self.$route.params.token !== undefined) {
+        api.checkBoothToken(self.$route.params.token).then((res) => {
+          window.localStorage.setItem('token', self.$route.params.token)
+          window.localStorage.setItem('name', res.data.display_name)
+          this.$vuetify.toast.create(...['登入成功', 'bottom'])
+          this.$router.replace('/AddPuzzle')
+        }).catch((error) => {
+          this.$vuetify.toast.create(...['登入失敗，請檢查連結Token是否正確？', 'bottom'])
+        })
       }
     }
   }

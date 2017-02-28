@@ -17,9 +17,8 @@
     methods: {
       OnSuccess(result) {
         api.grantPuzzle(window.localStorage.getItem('token'), result).then((res) => {
-          this.$vuetify.toast.create(...[res.data.status, 'bottom'])
+          this.$vuetify.toast.create(...['發送成功' + res.data.status, 'bottom'])
         }).catch((error) => {
-          this.disabled = false
           this.$vuetify.toast.create(...[error.response.data.message, 'bottom'])
         })
       }

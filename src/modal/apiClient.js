@@ -6,11 +6,21 @@ const defaults = {
 
 Object.assign(axios.defaults, defaults)
 
+export const checkBoothToken = (boothToken) => {
+  return axios.get('/event/puzzle/deliverer', {
+    params: {
+      token: boothToken
+    }
+  })
+}
+
 export const grantPuzzle = (boothToken, clientToken) => {
-  return axios.post('/event/puzzle/grant', {
-    attendee: clientToken
+  return axios.post('/event/puzzle/deliver?token=token', {
+    receiver: clientToken
   }, {
-    headers: {'Auth': boothToken}
+    params: {
+      token: boothToken
+    }
   })
 }
 
