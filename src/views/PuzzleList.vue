@@ -3,7 +3,7 @@
     <v-container fluid>
       <v-row>
         <v-col lg2="lg2" md4="md4" xs6="xs6" v-for="chip in chipsConuter" class="ma-0 pa-0">
-          <chip  :displayName="chip.displayName" :count="chip.count"></chip>
+          <chip :displayName="chip.displayName" :count="chip.count"></chip>
         </v-col>
       </v-row>
     </v-container>
@@ -39,8 +39,24 @@
         }, [])
       }
     },
+    methods: {
+      parameters() {
+        return location.toString().split('?').pop().split('&').map(p => {
+          var ps = p.split('=')
+          var o = {}
+          o[ps.shift()] = ps.join('=')
+          return o
+        }).reduce((a, b) => {
+          var o = a
+          for (var k in b) {
+            o[k] = b[k]
+          }
+          return o
+        })
+      }
+    },
     mounted() {
-      api.getPuzzle(this.$route.params.token).then((res) => {
+      api.getPuzzle(this.parameters().token).then((res) => {
         this.data = res.data
       }).catch((error) => {
         this.$vuetify.toast.create(...['發生錯誤', 'bottom'])
@@ -48,4 +64,3 @@
     }
   }
 </script>
-

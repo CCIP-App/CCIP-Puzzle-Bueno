@@ -35,15 +35,26 @@
       }
     },
     methods: {
-      login() {
-
+      parameters() {
+        return location.toString().split('?').pop().split('&').map(p => {
+          var ps = p.split('=')
+          var o = {}
+          o[ps.shift()] = ps.join('=')
+          return o
+        }).reduce((a, b) => {
+          var o = a
+          for (var k in b) {
+            o[k] = b[k]
+          }
+          return o
+        })
       }
     },
     mounted() {
       var self = this
-      if (self.$route.params.token !== undefined) {
-        api.checkBoothToken(self.$route.params.token).then((res) => {
-          window.localStorage.setItem('token', self.$route.params.token)
+      if (this.parameters().token !== undefined) {
+        api.checkBoothToken(this.parameters().token).then((res) => {
+          window.localStorage.setItem('token', this.parameters().token)
           window.localStorage.setItem('name', res.data.display_name)
           alert('登入成功')
           self.$router.replace('/AddPuzzle')
