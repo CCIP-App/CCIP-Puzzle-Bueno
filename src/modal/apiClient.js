@@ -15,9 +15,9 @@ export const checkBoothToken = (boothToken) => {
 }
 
 export const grantPuzzle = (boothToken, clientToken) => {
-  return axios.post('/event/puzzle/deliver?token=token', {
-    receiver: clientToken
-  }, {
+  var params = new URLSearchParams()
+  params.append('receiver', clientToken)
+  return axios.post('/event/puzzle/deliver', params ,{
     params: {
       token: boothToken
     }

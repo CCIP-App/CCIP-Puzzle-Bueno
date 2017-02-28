@@ -45,10 +45,10 @@
         api.checkBoothToken(self.$route.params.token).then((res) => {
           window.localStorage.setItem('token', self.$route.params.token)
           window.localStorage.setItem('name', res.data.display_name)
-          this.$vuetify.toast.create(...['登入成功', 'bottom'])
-          this.$router.replace('/AddPuzzle')
+          alert('登入成功')
+          self.$router.replace('/AddPuzzle')
         }).catch((error) => {
-          this.$vuetify.toast.create(...['登入失敗，請檢查連結Token是否正確？', 'bottom'])
+          self.$vuetify.toast.create(...['登入失敗，請檢查連結Token是否正確？', 'bottom'])
         })
       }
     }

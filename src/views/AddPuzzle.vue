@@ -11,16 +11,20 @@
     data() {
       return {
         boothName: 'XXX',
-        qrState: true
+        qrState: true,
+        buffer: ''
       }
     },
     methods: {
       OnSuccess(result) {
-        api.grantPuzzle(window.localStorage.getItem('token'), result).then((res) => {
-          this.$vuetify.toast.create(...['發送成功' + res.data.status, 'bottom'])
-        }).catch((error) => {
-          this.$vuetify.toast.create(...[error.response.data.message, 'bottom'])
-        })
+        if (this.buffer !== result) {
+          this.buffer = result
+          api.grantPuzzle(window.localStorage.getItem('token'), result).then((res) => {
+            this.$vuetify.toast.create(...['發送成功' + res.data.status, 'bottom'])
+          }).catch((error) => {
+            this.$vuetify.toast.create(...[error.response.data.message, 'bottom'])
+          })
+        }
       }
     }
   }
