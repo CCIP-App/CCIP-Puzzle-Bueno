@@ -8,7 +8,6 @@ import PuzzleList from '../views/PuzzleList.vue'
 Vue.use(Router)
 
 export default new Router({
-  mode: 'history',
   routes: [
     { path: '/', component: Login },
     { path: '/register/:token', component: Login },
