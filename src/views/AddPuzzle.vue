@@ -26,6 +26,9 @@
           })
         }
       }
+    },
+    mounted() {
+      this.boothName = window.localStorage.getItem('name')
     }
   }
 </script>
