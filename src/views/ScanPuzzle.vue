@@ -49,11 +49,9 @@
         }, [])
       },
       name: function() {
-        console.log(this.data.user_id)
         return 'name: ' + this.data.user_id
       },
       valid: function() {
-        console.log(this.data.valid)
         return 'valid: ' + ((this.data.valid) ? '已領取' : '未領取')
       }
     },
