@@ -10,7 +10,7 @@ Vue.use(Router)
 
 export default new Router({
   routes: [
-    { path: '/', component: Login },
+    { path: '/', component: ScanPuzzle },
     { path: '/register', component: Login },
     {
       path: '/AddPuzzle',
@@ -23,7 +23,6 @@ export default new Router({
         }
       }
     },
-    { path: '/PuzzleList', component: PuzzleList },
-    { path: '/ScanPuzzle', component: ScanPuzzle }
+    { path: '/PuzzleList', component: PuzzleList }
   ]
 })
