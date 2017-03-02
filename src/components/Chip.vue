@@ -44,7 +44,7 @@ export default {
     word-wrap: break-word
     white-space: nowrap
   [role="chip-card"]
-    width: 220px
+    width: 100%
     max-height: 60px
   [role="chip"]
     margin: 1em
