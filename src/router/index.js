@@ -4,6 +4,7 @@ import Router from 'vue-router'
 import Login from '../views/Login.vue'
 import AddPuzzle from '../views/AddPuzzle.vue'
 import PuzzleList from '../views/PuzzleList.vue'
+import ScanPuzzle from '../views/ScanPuzzle.vue'
 
 Vue.use(Router)
 
@@ -22,6 +23,7 @@ export default new Router({
         }
       }
     },
-    { path: '/PuzzleList', component: PuzzleList }
+    { path: '/PuzzleList', component: PuzzleList },
+    { path: '/ScanPuzzle', component: ScanPuzzle }
   ]
 })
