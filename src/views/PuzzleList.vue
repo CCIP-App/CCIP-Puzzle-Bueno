@@ -2,6 +2,11 @@
   <div id='PuzzleList'>
     <v-container fluid>
       <v-row>
+        <v-col md8>
+          <blockquote>{{ name }}<br>{{ valid }}</blockquote>
+        </v-col>
+      </v-row>
+      <v-row>
         <v-col lg2="lg2" md4="md4" xs6="xs6" v-for="chip in chipsConuter" class="ma-0 pa-0">
           <chip :displayName="chip.displayName" :count="chip.count"></chip>
         </v-col>
@@ -37,6 +42,14 @@
           }
           return pv
         }, [])
+      },
+      name: function() {
+        console.log(this.data.user_id)
+        return 'name: ' + this.data.user_id
+      },
+      valid: function() {
+        console.log(this.data.valid)
+        return 'valid: ' + ((this.data.valid) ? '已領取' : '未領取')
       }
     },
     methods: {
