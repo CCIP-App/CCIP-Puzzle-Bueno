@@ -49,8 +49,7 @@ export default {
   mounted() {
     var self = this
     window.w69b.qr.decoding.setWorkerUrl('public/barcode.js/w69b.qrcode.decodeworker.min.js')
-    navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia
-    if (navigator.getUserMedia) {
+    if (navigator.mediaDevices) {
       self.webrtc = true
       self.scanner = new window.w69b.qr.ui.ContinuousScanner()
       self.scanner.setDecodedCallback(function(result) {
@@ -63,9 +62,11 @@ export default {
     }
   },
   beforeDestroy() {
-    var self = this
-    self.scanner.setStopped(true)
-    self.scanner.dispose()
+    if (navigator.mediaDevices) {
+      var self = this
+      self.scanner.setStopped(true)
+      self.scanner.dispose()
+    }
   },
   methods: {
     onSuccess(result) {
