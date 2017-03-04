@@ -61,7 +61,8 @@
     methods: {
       OnSuccess(result) {
         if (result !== this.token) {
-          this.token = result
+          window.location.href = '?token=7679f08f7eaeef5e9a65a1738ae2840e#/'
+          // this.token = result
         }
       }
     },
