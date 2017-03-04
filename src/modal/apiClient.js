@@ -6,7 +6,7 @@ const defaults = {
 
 Object.assign(axios.defaults, defaults)
 
-export const checkBoothToken = (boothToken) => {
+export var checkBoothToken = (boothToken) => {
   return axios.get('/event/puzzle/deliverer', {
     params: {
       token: boothToken
@@ -14,17 +14,17 @@ export const checkBoothToken = (boothToken) => {
   })
 }
 
-export const grantPuzzle = (boothToken, clientToken) => {
+export var grantPuzzle = (boothToken, clientToken) => {
   var params = new URLSearchParams()
   params.append('receiver', clientToken)
-  return axios.post('/event/puzzle/deliver', params ,{
+  return axios.post('/event/puzzle/deliver', params, {
     params: {
       token: boothToken
     }
   })
 }
 
-export const getPuzzle = (clientToken) => {
+export var getPuzzle = (clientToken) => {
   return axios.get('/event/puzzle', {
     params: {
       token: clientToken

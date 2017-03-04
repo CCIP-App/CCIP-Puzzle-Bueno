@@ -13,13 +13,13 @@
 
 <script>
   export default {
-    data () {
+    data() {
       return {
         
       }
     },
 
-    mounted () {
+    mounted() {
       this.$vuetify.init()
     }
   }

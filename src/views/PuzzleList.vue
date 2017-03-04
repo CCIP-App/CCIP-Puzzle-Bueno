@@ -40,7 +40,7 @@
       },
       chipsConuter: function() {
         return this.chips.reduce((pv, cv) => {
-          let specialChip = pv.find((el) => el.displayName === cv)
+          var specialChip = pv.find((el) => el.displayName === cv)
           if (specialChip === undefined) {
             pv.push({ displayName: cv, count: 1 })
           } else {
@@ -76,7 +76,7 @@
       }
     },
     mounted() {
-      let query = {}
+      var query = {}
       if (window.location.search.length > 0 && (query = Util.parseQueryParams(window.location.search))) {
         this.token = query.token
       }

@@ -4,7 +4,7 @@ export default {
   parseQueryParams(query) {
     return query.split('?').pop().split('&')
       .map((query) => {
-        let keyValue = query.split('=')
+        var keyValue = query.split('=')
         return {
           key: keyValue.shift(),
           value: keyValue.pop()
@@ -16,7 +16,7 @@ export default {
       }, {})
   },
   sha1Gen(raw) {
-    let hashGen = crypto.createHash('sha1')
+    var hashGen = crypto.createHash('sha1')
     hashGen.update(raw)
     return hashGen.digest('hex')
   }

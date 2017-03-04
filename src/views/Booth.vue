@@ -1,6 +1,6 @@
 <template>
   <div id='Booth'>
-    <qrcode-reader :enable="qrState" width="320px" height="240px" :noResult="true" :title="boothName" subTitle="請掃描Qrcode!" @OnSuccess="OnSuccess"></qrcode-reader>
+    <qrcode-reader v-if="boothToken!==''" :enable="qrState" width="320px" height="240px" :noResult="true" :title="boothName" subTitle="請掃描Qrcode!" @OnSuccess="OnSuccess"></qrcode-reader>
   </div>
 </template>
 
@@ -12,6 +12,7 @@
     data() {
       return {
         boothName: 'Unknow booth',
+        boothToken: '',
         qrState: true,
         buffer: ''
       }
@@ -29,7 +30,19 @@
       }
     },
     mounted() {
-      this.boothName = window.localStorage.getItem('name')
+      var self = this
+      var query = {}
+      console.log(window.location.hash.length)
+      if (window.location.hash.length > 0 && (query = Util.parseQueryParams(window.location.hash))) {
+        api.checkBoothToken(query.token).then((res) => {
+          self.boothToken = query.token
+          self.boothName = res.data.display_name
+        }).catch((error) => {
+          self.$vuetify.toast.create(...['登入失敗，請檢查連結Token是否正確？', 'bottom'])
+          self.$router.replace('/')
+        })
+      }
     }
   }
+
 </script>
