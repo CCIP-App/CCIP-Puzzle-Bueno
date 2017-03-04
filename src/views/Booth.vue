@@ -32,8 +32,7 @@
     mounted() {
       var self = this
       var query = {}
-      console.log(window.location.hash.length)
-      if (window.location.hash.length > 0 && (query = Util.parseQueryParams(window.location.hash))) {
+      if (window.location.search.length > 0 && (query = Util.parseQueryParams(window.location.search))) {
         api.checkBoothToken(query.token).then((res) => {
           self.boothToken = query.token
           self.boothName = res.data.display_name
@@ -41,6 +40,8 @@
           self.$vuetify.toast.create(...['登入失敗，請檢查連結Token是否正確？', 'bottom'])
           self.$router.replace('/')
         })
+      } else {
+        self.$router.replace('/')
       }
     }
   }
