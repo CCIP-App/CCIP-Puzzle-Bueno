@@ -1,6 +1,9 @@
 <template>
   <div id='PuzzleList'>
-    <v-container fluid>
+    <template v-if="data === null">
+      <qrcode-reader :enable="qrState" width="320px" height="240px" :noResult="true" title="" subTitle="請掃描Qrcode!" @OnSuccess="OnSuccess"></qrcode-reader>
+    </template>
+    <v-container fluid v-else>
       <v-row>
         <v-col md8>
           <blockquote>{{ name }}<br>{{ valid }}</blockquote>
@@ -17,11 +20,14 @@
 
 <script>
   import * as api from '../modal/apiClient.js'
+  import Util from '../modal/util.js'
   export default {
     name: 'PuzzleList',
     data() {
       return {
-        data: null
+        data: null,
+        token: '',
+        qrState: true
       }
     },
     computed: {
@@ -53,27 +59,26 @@
       }
     },
     methods: {
-      parameters() {
-        return location.search.toString().split('?').pop().split('&').map(p => {
-          var ps = p.split('=')
-          var o = {}
-          o[ps.shift()] = ps.join('=')
-          return o
-        }).reduce((a, b) => {
-          var o = a
-          for (var k in b) {
-            o[k] = b[k]
-          }
-          return o
+      OnSuccess(result) {
+        if (result !== this.token) {
+          this.token = result
+        }
+      }
+    },
+    watch: {
+      token() {
+        api.getPuzzle(Util.sha1Gen(this.token)).then((res) => {
+          this.data = res.data
+        }).catch((error) => {
+          this.$vuetify.toast.create(...['發生錯誤', 'bottom'])
         })
       }
     },
     mounted() {
-      api.getPuzzle(this.parameters().token).then((res) => {
-        this.data = res.data
-      }).catch((error) => {
-        this.$vuetify.toast.create(...['發生錯誤', 'bottom'])
-      })
+      let query = {}
+      if (window.location.search.length > 0 && (query = Util.parseQueryParams(window.location.search))) {
+        this.token = query.token
+      }
     }
   }
 </script>

@@ -1,16 +1,17 @@
 <template>
-  <div id='AddPuzzle'>
+  <div id='Booth'>
     <qrcode-reader :enable="qrState" width="320px" height="240px" :noResult="true" :title="boothName" subTitle="請掃描Qrcode!" @OnSuccess="OnSuccess"></qrcode-reader>
   </div>
 </template>
 
 <script>
   import * as api from '../modal/apiClient.js'
+  import Util from '../modal/util.js'
   export default {
-    name: 'AddPuzzle',
+    name: 'Booth',
     data() {
       return {
-        boothName: 'XXX',
+        boothName: 'Unknow booth',
         qrState: true,
         buffer: ''
       }
