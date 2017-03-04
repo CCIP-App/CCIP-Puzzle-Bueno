@@ -36,7 +36,7 @@
     },
     methods: {
       parameters() {
-        return location.toString().split('?').pop().split('&').map(p => {
+        return location.search.toString().split('?').pop().split('&').map(p => {
           var ps = p.split('=')
           var o = {}
           o[ps.shift()] = ps.join('=')
