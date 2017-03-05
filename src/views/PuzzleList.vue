@@ -31,15 +31,8 @@
       }
     },
     computed: {
-      chips: function() {
-        if (this.data === null) {
-          return []
-        } else {
-          return this.data.puzzle
-        }
-      },
       chipsConuter: function() {
-        return this.chips.reduce((pv, cv) => {
+        return this.data.puzzle.reduce((pv, cv) => {
           var specialChip = pv.find((el) => el.displayName === cv)
           if (specialChip === undefined) {
             pv.push({ displayName: cv, count: 1 })
@@ -61,14 +54,13 @@
     methods: {
       OnSuccess(result) {
         if (result !== this.token) {
-          window.location.href = '?token=7679f08f7eaeef5e9a65a1738ae2840e#/'
-          // this.token = result
+          this.token = Util.sha1Gen(result)
         }
       }
     },
     watch: {
       token() {
-        api.getPuzzle(Util.sha1Gen(this.token)).then((res) => {
+        api.getPuzzle(this.token).then((res) => {
           this.data = res.data
         }).catch((error) => {
           this.$vuetify.toast.create(...['發生錯誤', 'bottom'])
