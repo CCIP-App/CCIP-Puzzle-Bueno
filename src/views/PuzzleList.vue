@@ -26,8 +26,8 @@
     data() {
       return {
         data: null,
-        token: '',
-        qrState: true
+        qrState: true,
+        token: ''
       }
     },
     computed: {
@@ -54,23 +54,24 @@
     methods: {
       OnSuccess(result) {
         if (result !== this.token) {
-          this.token = Util.sha1Gen(result)
-          this.loadPuzzle()
+          window.location.search = 'token=' + Util.sha1Gen(result)
         }
       },
       loadPuzzle() {
+        var self = this
         api.getPuzzle(this.token).then((res) => {
-          this.data = res.data
+          self.data = res.data
         }).catch((error) => {
-          console.log('load puzzle error')
-          window.location.search = ''
+          self.$vuetify.toast.create(...['Token 無法辨識', 'bottom'])
+          setTimeout(() => {
+            window.location.search = ''
+          }, 3 * 1000)
         })
       }
     },
     mounted() {
       var query = {}
       if (window.location.search.length > 0 && (query = Util.parseQueryParams(window.location.search))) {
-        console.log('mounted query')
         this.token = query.token
         this.loadPuzzle()
       }
