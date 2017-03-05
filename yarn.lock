@@ -3110,6 +3110,10 @@ qs@6.2.0:
   version "6.2.0"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.2.0.tgz#3b7848c03c2dece69a9522b0fae8c4126d745f3b"
 
+"qs@https://github.com/ljharb/qs":
+  version "6.3.1"
+  resolved "https://github.com/ljharb/qs#556ee0a85d0055551496ca523437811c38c09ab3"
+
 qs@~6.3.0:
   version "6.3.0"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.3.0.tgz#f403b264f23bc01228c74131b407f18d5ea5d442"

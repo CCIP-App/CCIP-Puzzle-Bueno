@@ -1,5 +1,5 @@
 import axios from 'axios'
-
+import qs from 'qs'
 const defaults = {
   baseURL: 'https://ccip.sitcon.org/'
 }
@@ -15,13 +15,7 @@ export var checkBoothToken = (boothToken) => {
 }
 
 export var grantPuzzle = (boothToken, clientToken) => {
-  var params = new URLSearchParams()
-  params.append('receiver', clientToken)
-  return axios.post('/event/puzzle/deliver', params, {
-    params: {
-      token: boothToken
-    }
-  })
+  return axios.post('/event/puzzle/deliver?token=' + boothToken, qs.stringify({receiver: clientToken}))
 }
 
 export var getPuzzle = (clientToken) => {
@@ -31,4 +25,3 @@ export var getPuzzle = (clientToken) => {
     }
   })
 }
-
