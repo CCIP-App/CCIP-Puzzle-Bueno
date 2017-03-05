@@ -1,9 +1,12 @@
 <template>
   <div id='PuzzleList'>
-    <template v-if="data === null">
+    <template v-if="showScanner">
       <qrcode-reader :enable="qrState" width="320px" height="240px" :noResult="true" title="" subTitle="請掃描Qrcode!" @OnSuccess="OnSuccess"></qrcode-reader>
+      {{ token }}
+      {{ token === ''}}
+      {{ data === null && token === ''}}
     </template>
-    <v-container fluid v-else>
+    <v-container fluid v-else-if="data !== null">
       <v-row>
         <v-col md8>
           <blockquote>{{ name }}<br>{{ valid }}</blockquote>
@@ -31,7 +34,11 @@
       }
     },
     computed: {
+      showScanner: function() {
+        return this.token === '' && this.data === null
+      },
       chipsConuter: function() {
+        if (this.data === null) return
         return this.data.puzzle.reduce((pv, cv) => {
           var specialChip = pv.find((el) => el.displayName === cv)
           if (specialChip === undefined) {
