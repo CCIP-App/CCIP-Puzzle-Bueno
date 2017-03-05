@@ -55,22 +55,24 @@
       OnSuccess(result) {
         if (result !== this.token) {
           this.token = Util.sha1Gen(result)
+          this.loadPuzzle()
         }
-      }
-    },
-    watch: {
-      token() {
+      },
+      loadPuzzle() {
         api.getPuzzle(this.token).then((res) => {
           this.data = res.data
         }).catch((error) => {
-          this.$vuetify.toast.create(...['發生錯誤', 'bottom'])
+          console.log('load puzzle error')
+          window.location.search = ''
         })
       }
     },
     mounted() {
       var query = {}
       if (window.location.search.length > 0 && (query = Util.parseQueryParams(window.location.search))) {
+        console.log('mounted query')
         this.token = query.token
+        this.loadPuzzle()
       }
     }
   }
