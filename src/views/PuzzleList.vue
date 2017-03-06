@@ -1,10 +1,7 @@
 <template>
   <div id='PuzzleList'>
     <template v-if="showScanner">
-      <qrcode-reader :enable="qrState" width="320px" height="240px" :noResult="true" title="" subTitle="請掃描Qrcode!" @OnSuccess="OnSuccess"></qrcode-reader>
-      {{ token }}
-      {{ token === ''}}
-      {{ data === null && token === ''}}
+      <qrcode-reader :enable="qrState" width="320px" height="240px" :noResult="true" title="" subTitle="掃描QR Code 檢視拼圖清單" @OnSuccess="OnSuccess"></qrcode-reader>
     </template>
     <v-container fluid v-else-if="data !== null">
       <v-row>
@@ -60,6 +57,7 @@
     },
     methods: {
       OnSuccess(result) {
+        console.log('trigger PuzzleList onSuccess', result)
         if (result !== this.token) {
           window.location.search = 'token=' + Util.sha1Gen(result)
         }
@@ -85,3 +83,17 @@
     }
   }
 </script>
+
+<style lang="stylus">
+  #PuzzleList
+    height: 100vh
+    width: 100%
+    background-image: url('~public/background.jpg')
+    background-repeat: repeat-y
+    background-size: cover
+    color: #FFF
+    h2 {
+      color: #FFF
+    }
+
+</style>
