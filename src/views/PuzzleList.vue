@@ -1,7 +1,7 @@
 <template>
   <div id='PuzzleList'>
     <template v-if="showScanner">
-      <qrcode-reader :enable="qrState" width="320px" height="240px" :noResult="true" title="" subTitle="掃描QR Code 檢視拼圖清單" @OnSuccess="OnSuccess"></qrcode-reader>
+      <qrcode-reader :enable="showScanner" width="320px" height="240px" :noResult="true" title="" subTitle="掃描QR Code 檢視拼圖清單" @OnSuccess="OnSuccess"></qrcode-reader>
     </template>
     <v-container fluid v-else-if="data !== null">
       <v-row>
@@ -32,7 +32,6 @@
     data() {
       return {
         data: null,
-        qrState: true,
         token: ''
       }
     },
@@ -75,7 +74,6 @@
         var self = this
         api.getPuzzle(this.token).then((res) => {
           self.data = res.data
-          self.qrState = false
         }).catch((error) => {
           self.$vuetify.toast.create(...['Token 無法辨識', 'bottom'])
           setTimeout(() => {
@@ -84,7 +82,7 @@
         })
       }
     },
-    mounted() {
+    beforeMount() {
       var query = {}
       if (window.location.search.length > 0 && (query = Util.parseQueryParams(window.location.search))) {
         this.token = query.token
