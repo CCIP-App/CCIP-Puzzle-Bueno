@@ -78,9 +78,8 @@
     background-repeat: repeat-y
     background-size: cover
     color: #FFF
-    h2 {
+    h2
       color: #FFF
-    }
 
     [role="messages"]
       background: #FFF
@@ -88,11 +87,12 @@
       z-index: 1
       max-width: 400px
       margin: auto
-      > p {
-        padding: 10px;
+      border: 1px
+      border-radius: 5px
+      > p
+        padding: 10px
         z-index: 2
         color: #000
         font-size: 1.5rem
-      }
 
 </style>

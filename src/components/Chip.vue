@@ -31,7 +31,7 @@ export default {
   .spinner
     text-align: center
     color: black
-    font-size: 1rem
+    font-size: 1.7rem
     text-overflow: ellipsis
     overflow: hidden
     word-wrap: break-word
