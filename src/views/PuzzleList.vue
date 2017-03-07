@@ -12,7 +12,7 @@
       </v-row>
       <v-row>
         <div role="messages" class="mt-3">
-          <p>完成程式碼拼圖後，在購買 SITCON 文創商品可折抵 50 元唷！</p>
+          <p>完成程式碼拼圖後，購買 SITCON 文創商品可折抵 50 元唷！</p>
         </div>
       </v-row>
       <v-row>
