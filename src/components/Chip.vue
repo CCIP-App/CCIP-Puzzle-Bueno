@@ -31,23 +31,23 @@ export default {
   .spinner
     text-align: center
     color: black
-    font-size: 1.7rem
-    text-overflow: ellipsis
+    font-size: 1.5rem
     overflow: hidden
     word-wrap: break-word
-    white-space: nowrap
+    overflow-wrap: break-word
+    @media screen and (max-width:500px)
+      font-size:1.2rem
+
   .cardContent
     margin: 0 auto
-    overflow: hidden
-    text-overflow: ellipsis
-    overflow: hidden
-    word-wrap: break-word
-    white-space: nowrap
+
   [role="chip-card"]
     width: 100%
-    max-height: 60px
+    height: 100% !important
+    // max-height: 100px
   [role="chip"]
-    margin: 1em
+    padding: 1em
+    height: 100%
   [role="chip-count"]
     margin-top: -1em
     margin-right: -0.5em
