@@ -25,3 +25,7 @@ export var getPuzzle = (clientToken) => {
     }
   })
 }
+
+export var getNickname = (clientToken) => {
+  return axios.get('landing?token=' + clientToken).then((res) => res.data)
+}

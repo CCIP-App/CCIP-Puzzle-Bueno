@@ -29,7 +29,9 @@
         if (this.buffer !== result) {
           this.buffer = result
           api.grantPuzzle(this.boothToken, result).then((res) => {
-            self.alertMessages = '拼圖發送成功(・ω・)ノ'
+            return api.getNickname(result)
+          }).then((res) => {
+            self.alertMessages = '成功拼圖發送給 ' + res.nickname +' (・ω・)ノ'
             self.alertSuccess = true
             self.alertError = false
           }).catch((error) => {
@@ -38,7 +40,7 @@
                 self.alertMessages = '已經領過拼圖囉(￣▽￣)'
                 break
               case 'invalid receiver token':
-                self.alertMessages = '條碼好像壞了(;´༎ຶД༎ຶ`)'
+                self.alertMessages = '條碼好像不正確(⊙ω⊙)'
                 break
               case 'token and receiver required':
                 self.alertMessages = '好像抓不到條碼(;´༎ຶД༎ຶ`)'
