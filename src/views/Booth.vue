@@ -35,15 +35,19 @@
             self.alertSuccess = true
             self.alertError = false
           }).catch((error) => {
-            switch (error.response.data.message) {
-              case 'Already take from this deliverer':
-                self.alertMessages = '已經領過拼圖囉(￣▽￣)'
-                break
-              case 'invalid receiver token':
-                self.alertMessages = '條碼好像不正確(⊙ω⊙)'
-                break
-              case 'token and receiver required':
-                self.alertMessages = '好像抓不到條碼(;´༎ຶД༎ຶ`)'
+            if (error.response) {
+              switch (error.response.data.message) {
+                case 'Already take from this deliverer':
+                  self.alertMessages = '已經領過拼圖囉(￣▽￣)'
+                  break
+                case 'invalid receiver token':
+                  self.alertMessages = '條碼好像不正確(⊙ω⊙)'
+                  break
+                case 'token and receiver required':
+                  self.alertMessages = '好像抓不到條碼(;´༎ຶД༎ຶ`)'
+              }
+            } else {
+              self.alertMessages = '網路可能出包了_(´ཀ`」 ∠)_'
             }
             self.alertError = true
             self.alertSuccess = false
