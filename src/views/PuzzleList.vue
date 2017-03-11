@@ -10,8 +10,16 @@
           <blockquote>{{ valid }}<br>{{ coupon }}</blockquote>
         </v-col>
       </v-row>
-      <v-row>
-        <div role="messages" class="mt-3">
+      <v-row class="pa-1">
+        <v-col xs6>
+          <a href="https://docs.google.com/document/d/1lwgy1KVPZIYnDtgprV34qu8Zhav_rQ6tZVbh_ARuMjM/pub"  target="_blank" class="sitcon-btn">拼圖題目</a>
+        </v-col>
+        <v-col xs6>
+          <a href="https://docs.google.com/document/d/1Yuii3Yxfd7oyAZWpXQlvzuO8k3IsVppl43zgZ-ERcIk/pub"  target="_blank" class="sitcon-btn">規則說明</a>
+        </v-col>
+      </v-row>
+      <v-row class="pa-3">
+        <div role="messages" class="">
           <p>完成程式碼拼圖後，購買 SITCON 文創商品可折抵 50 元唷！</p>
         </div>
       </v-row>
@@ -159,4 +167,20 @@
         color: #000
         font-size: 1rem
         margin: 0
+
+    .sitcon-btn 
+      display: block
+      width: 100%
+      height: 50px
+      color: white
+      text-decoration: none
+      background-color: rgb(225,45,147)
+      cursor: pointer
+      text-align: center
+      line-height: 50px
+      font-size: 1.2rem
+    .sitcon-btn:hover 
+      background-color: rgb(228,0,126)
+
+
 </style>
