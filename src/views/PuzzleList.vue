@@ -12,13 +12,27 @@
       </v-row>
       <v-row class="pa-1">
         <v-col xs6>
-          <a href="https://docs.google.com/document/d/1lwgy1KVPZIYnDtgprV34qu8Zhav_rQ6tZVbh_ARuMjM/pub"  target="_blank" class="sitcon-btn">拼圖題目</a>
+          <v-btn block primary dark @click.native.stop="topic = !topic" >拼圖題目</v-btn>
+          <v-modal v-model="topic">
+            <v-card>
+              <v-card-text>
+                <iframe style="width:75vw;height:54vh;border:none;" src="https://docs.google.com/document/d/1lwgy1KVPZIYnDtgprV34qu8Zhav_rQ6tZVbh_ARuMjM/pub"></iframe>
+              </v-card-text>
+            </v-card>
+          </v-modal>
         </v-col>
         <v-col xs6>
-          <a href="https://docs.google.com/document/d/1Yuii3Yxfd7oyAZWpXQlvzuO8k3IsVppl43zgZ-ERcIk/pub"  target="_blank" class="sitcon-btn">規則說明</a>
+          <v-btn block primary dark @click.native.stop="help = !help" >規則說明</v-btn>
+          <v-modal v-model="help">
+            <v-card>
+              <v-card-text class="pa-2">
+                <iframe style="width:75vw;height:54vh;border:none;" src="https://docs.google.com/document/d/1Yuii3Yxfd7oyAZWpXQlvzuO8k3IsVppl43zgZ-ERcIk/pub"></iframe>
+              </v-card-text>
+            </v-card>
+          </v-modal>
         </v-col>
       </v-row>
-      <v-row class="pa-3">
+      <v-row class="pa-3" style="margin-top:-16px;">
         <div role="messages" class="">
           <p>完成程式碼拼圖後，購買 SITCON 文創商品可折抵 50 元唷！</p>
         </div>
@@ -40,7 +54,9 @@
     data() {
       return {
         data: null,
-        token: ''
+        token: '',
+        topic: false,
+        help: false
       }
     },
     computed: {

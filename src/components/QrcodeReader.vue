@@ -46,6 +46,7 @@ export default {
   },
   watch: {
     enable: function(state) {
+      var self = this
       self.scanner.setStopped(!state)
     }
   },

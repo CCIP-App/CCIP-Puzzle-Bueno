@@ -51,7 +51,7 @@ export default {
   [role="chip-count"]
     margin-top: -1em
     margin-right: -0.5em
-    z-index: 9999
+    z-index: 999
     font-size: 2rem
     position: relative
     float: right

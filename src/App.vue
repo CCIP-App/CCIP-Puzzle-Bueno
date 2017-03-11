@@ -12,17 +12,7 @@
 </template>
 
 <script>
-  export default {
-    data() {
-      return {
-        
-      }
-    },
 
-    mounted() {
-      this.$vuetify.init()
-    }
-  }
 </script>
 
 <style lang="stylus">
