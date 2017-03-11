@@ -88,18 +88,50 @@
         this.token = query.token
         this.loadPuzzle()
       }
+    },
+    mounted() {
+      var move = document.getElementById('PuzzleList')
+
+      move.addEventListener('touchstart', function() {
+        var top = move.scrollTop
+        var totalScroll = move.scrollHeight
+        var currentScroll = top + move.offsetHeight
+        if (top === 0) {
+          move.scrollTop = 1
+        } else if (currentScroll === totalScroll) {
+          move.scrollTop = top - 1
+        }
+      })
     }
   }
 </script>
 
 <style lang="stylus">
+  body
+    overflow: hidden
+    background: transparent;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+    height: 100%
+
+
   #PuzzleList
-    height: 100vh
-    width: 100%
+    transform: translateZ(0)
+    perspective: 1000
     background-image: url('~public/background.jpg')
-    background-repeat: repeat-y
-    background-size: cover
+    background-size: cover 
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 0;
+
     color: #FFF
+
+    overflow: scroll
+    -webkit-overflow-scrolling: touch
 
     h2
       color: #FFF
