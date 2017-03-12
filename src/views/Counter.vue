@@ -1,6 +1,6 @@
 <template>
   <div id='Counter'>
-    <qrcode-reader :enable="true" width="480px" height="360px" :noResult="true" title="" subTitle="" @OnSuccess="OnSuccess"></qrcode-reader>
+    <qrcode-reader :enable="true" :width="qrcodeSize.width" :height="qrcodeSize.height" :noResult="true" title="" subTitle="" @OnSuccess="OnSuccess" class="pa-3"></qrcode-reader>
     <v-row>
       <v-btn block primary dark class="mt-4 mb-3 mr-3 ml-3" @click.native="closeCounter">關閉計算器</v-btn>
     </v-row>
@@ -8,6 +8,7 @@
       <v-row class="pa-3">
         <div role="messages">
           <p>掃描不同夥伴的 QR Code 可以統計夥伴們的程式碼拼圖總數量</p>
+          <p>{{ qrcodeSize }}</p>
         </div>
       </v-row>
       <v-row>
@@ -28,7 +29,11 @@
     data() {
       return {
         token: '',
-        puzzle: []
+        puzzle: [],
+        qrcodeSize: {
+          width: '80vw',
+          height: '60vw'
+        }
       }
     },
     computed: {
@@ -77,6 +82,9 @@
           move.scrollTop = top - 1
         }
       })
+    },
+    beforeMount() {
+      if (window.innerWidth > 500) this.qrcodeSize = {width: '480px', height: '360px'}
     }
   }
 </script>
