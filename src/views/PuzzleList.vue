@@ -1,7 +1,7 @@
 <template>
   <div id='PuzzleList'>
     <template v-if="showScanner">
-      <qrcode-reader :enable="showScanner" width="320px" height="240px" :noResult="true" title="" subTitle="掃描QR Code 檢視拼圖清單" @OnSuccess="OnSuccess"></qrcode-reader>
+      <qrcode-reader :enable="showScanner" width="320px" height="240px" :noResult="true" title="" subTitle="掃描 QR Code 檢視拼圖清單" @OnSuccess="OnSuccess"></qrcode-reader>
     </template>
     <v-container fluid v-else-if="data !== null">
       <v-row>
@@ -45,6 +45,7 @@
         </v-col>
       </v-row>
     </v-container>
+    <Footer />
   </div>
 </template>
 
