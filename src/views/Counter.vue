@@ -8,7 +8,6 @@
       <v-row class="pa-3">
         <div role="messages">
           <p>掃描不同夥伴的 QR Code 可以統計夥伴們的程式碼拼圖總數量</p>
-          <p>{{ qrcodeSize }}</p>
         </div>
       </v-row>
       <v-row>
