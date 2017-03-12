@@ -4,6 +4,7 @@
     <div role="messages" class="mt-3">
       <p :class="{ 'red--text': alertError, 'green--text': alertSuccess }">{{ alertMessages }}</p>
     </div>
+    <Footer />
   </div>
 </template>
 
