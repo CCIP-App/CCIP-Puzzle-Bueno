@@ -10,27 +10,23 @@
           <blockquote>{{ valid }}<br>{{ coupon }}</blockquote>
         </v-col>
       </v-row>
-      <v-row class="pa-1">
-        <v-col xs6>
-          <v-btn block primary dark @click.native.stop="topic = !topic" >拼圖題目</v-btn>
-          <v-modal v-model="topic">
-            <v-card>
-              <v-card-text>
-                <iframe style="width:75vw;height:54vh;border:none;" src="https://docs.google.com/document/d/1lwgy1KVPZIYnDtgprV34qu8Zhav_rQ6tZVbh_ARuMjM/pub"></iframe>
-              </v-card-text>
-            </v-card>
-          </v-modal>
-        </v-col>
-        <v-col xs6>
-          <v-btn block primary dark @click.native.stop="help = !help" >規則說明</v-btn>
-          <v-modal v-model="help">
-            <v-card>
-              <v-card-text class="pa-2">
-                <iframe style="width:75vw;height:54vh;border:none;" src="https://docs.google.com/document/d/1Yuii3Yxfd7oyAZWpXQlvzuO8k3IsVppl43zgZ-ERcIk/pub"></iframe>
-              </v-card-text>
-            </v-card>
-          </v-modal>
-        </v-col>
+      <v-row class="pl-2 pr-2 mt-3 mb-3">
+        <v-btn block primary dark @click.native.stop="topic = !topic" class="mr-3">拼圖題目</v-btn>
+        <v-modal id="topic" v-model="topic">
+          <v-card>
+            <v-card-text>
+              <iframe style="width:75vw;height:54vh;border:none;" src="https://docs.google.com/document/d/1lwgy1KVPZIYnDtgprV34qu8Zhav_rQ6tZVbh_ARuMjM/pub"></iframe>
+            </v-card-text>
+          </v-card>
+        </v-modal>
+        <v-btn block primary dark @click.native.stop="help = !help" class="ml-3">規則說明</v-btn>
+        <v-modal id="help" v-model="help">
+          <v-card>
+            <v-card-text class="pa-2">
+              <iframe style="width:75vw;height:54vh;border:none;" src="https://docs.google.com/document/d/1Yuii3Yxfd7oyAZWpXQlvzuO8k3IsVppl43zgZ-ERcIk/pub"></iframe>
+            </v-card-text>
+          </v-card>
+        </v-modal>
       </v-row>
       <v-row class="pa-3" style="margin-top:-16px;">
         <div role="messages" class="">
@@ -144,7 +140,7 @@
     transform: translateZ(0)
     perspective: 1000
     background-image: url('~public/background.jpg')
-    background-size: cover 
+    background-size: cover
     position: fixed;
     width: 100%;
     height: 100%;
@@ -172,7 +168,7 @@
       opacity: .7
       z-index: 1
       border: 1px
-      border-radius: 5px
+      border-radius: 2px
       width: 100%
       @media screen and (max-width: 500px)
         max-width: 400px
@@ -184,7 +180,7 @@
         font-size: 1rem
         margin: 0
 
-    .sitcon-btn 
+    .sitcon-btn
       display: block
       width: 100%
       height: 50px
@@ -195,7 +191,7 @@
       text-align: center
       line-height: 50px
       font-size: 1.2rem
-    .sitcon-btn:hover 
+    .sitcon-btn:hover
       background-color: rgb(228,0,126)
 
 
