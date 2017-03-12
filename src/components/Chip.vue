@@ -44,7 +44,6 @@ export default {
   [role="chip-card"]
     width: 100%
     height: 100% !important
-    // max-height: 100px
   [role="chip"]
     padding: 1em
     height: 100%
