@@ -15,15 +15,21 @@
         <v-modal id="topic" v-model="topic">
           <v-card>
             <v-card-text>
-              <iframe style="width:75vw;height:54vh;border:none;" src="https://docs.google.com/document/d/1lwgy1KVPZIYnDtgprV34qu8Zhav_rQ6tZVbh_ARuMjM/pub"></iframe>
+              <div role="close-modal">
+                <v-btn floating="floating" primary dark outline @click.native.stop="topic = !topic" class="mr-3">X</v-btn>
+              </div>
+              <iframe src="https://hackmd.io/s/rJxU4vzie"></iframe>
             </v-card-text>
           </v-card>
         </v-modal>
         <v-btn block primary dark @click.native.stop="help = !help" class="ml-3">規則說明</v-btn>
         <v-modal id="help" v-model="help">
           <v-card>
-            <v-card-text class="pa-2">
-              <iframe style="width:75vw;height:54vh;border:none;" src="https://docs.google.com/document/d/1Yuii3Yxfd7oyAZWpXQlvzuO8k3IsVppl43zgZ-ERcIk/pub"></iframe>
+            <v-card-text>
+              <div role="close-modal">
+                <v-btn floating="floating" primary dark outline @click.native.stop="help = !help" class="mr-3">X</v-btn>
+              </div>
+              <iframe src="https://hackmd.io/s/rJATGDGje"></iframe>
             </v-card-text>
           </v-card>
         </v-modal>
@@ -135,7 +141,6 @@
     -webkit-touch-callout: none;
     height: 100%
 
-
   #PuzzleList
     transform: translateZ(0)
     perspective: 1000
@@ -193,6 +198,31 @@
       font-size: 1.2rem
     .sitcon-btn:hover
       background-color: rgb(228,0,126)
+
+    .modal--active
+      @media screen and (max-width: 500px)
+        width: 100vw
+        height: 100vh
+        max-width: 100vw
+        max-height: 100vh
+        overflow-y: scroll
+        overflow-x: hidden
+
+    iframe
+      width: 75vw
+      height: 54vh
+      border:none
+      @media screen and (max-width: 500px)
+        padding-right: 5vw
+        width: 100vw
+        height: 100vh
+
+    [role="close-modal"]
+      position: absolute
+      background-color: #FFF
+      float: right
+      right: 0
+      z-index: 999
 
 
 </style>
