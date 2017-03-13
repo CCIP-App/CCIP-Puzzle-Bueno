@@ -134,6 +134,8 @@
 </script>
 
 <style lang="stylus">
+  html
+    overflow: hidden
   body
     overflow: hidden
     background: transparent;
@@ -156,7 +158,8 @@
 
     color: #FFF
 
-    overflow: scroll
+    overflow-x: hidden
+    overflow-y: scroll
     -webkit-overflow-scrolling: touch
 
     h2
