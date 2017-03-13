@@ -201,6 +201,7 @@
       background-color: rgb(228,0,126)
 
     .modal--active
+      max-height: 82vh
       @media screen and (max-width: 500px)
         width: 100vw
         height: 100vh
@@ -211,7 +212,7 @@
 
     iframe
       width: 75vw
-      height: 54vh
+      height: 80vh
       border:none
       @media screen and (max-width: 500px)
         padding-right: 5vw
