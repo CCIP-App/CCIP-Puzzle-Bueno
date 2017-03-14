@@ -18,14 +18,14 @@ export var grantPuzzle = (boothToken, clientToken) => {
   return axios.post('/event/puzzle/deliver?token=' + boothToken, qs.stringify({receiver: clientToken}))
 }
 
-export var getPuzzle = (clientToken) => {
+export var getPuzzle = (pubToken) => {
   return axios.get('/event/puzzle', {
     params: {
-      token: clientToken
+      token: pubToken
     }
   })
 }
 
-export var getNickname = (clientToken) => {
-  return axios.get('landing?token=' + clientToken).then((res) => res.data)
+export var getNickname = (token) => {
+  return axios.get('landing?token=' + token).then((res) => res.data)
 }
