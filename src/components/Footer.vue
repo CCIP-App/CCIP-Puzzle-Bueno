@@ -6,7 +6,7 @@
         <span class="pl-2">GitHub</span>
       </v-chip>
     </a>
-    <a href="#/counter" alt="Source code on GitHub" class="ml-2">
+    <a href="https://puzzle.sitcon.party/#/counter" alt="Source code on GitHub" class="ml-2">
       <v-chip v-model="chip" class="primary white--text">
         <v-icon>extension</v-icon><span class="pl-2">拼圖計算機</span>
       </v-chip>
