@@ -36,7 +36,7 @@
       </v-row>
       <v-row class="pa-3" style="margin-top:-16px;">
         <div role="messages" class="">
-          <p>完成程式碼拼圖後，購買 SITCON 文創商品可折抵 50 元唷！</p>
+          <p>{{ messages }}</p>
         </div>
       </v-row>
       <v-row>
@@ -89,6 +89,9 @@
       coupon: function() {
         if (this.data === null) return ''
         else return '文創折價券: ' + (this.data.coupon ? '已於 ' + new Date(this.data.valid * 1000).toLocaleString() + ' 使用' : this.data.valid ? '尚未使用' : '未完成程式碼拼圖')
+      },
+      messages: function() {
+        return this.data.puzzle.length === 0 ? '還沒有收集到拼圖！偷偷告訴你一個小秘密：除了報到後可以取得兩片拼圖碎片，年會中各個攤位也可以取得拼圖碎片喔(￣▽￣)' : '完成程式碼拼圖後，購買 SITCON 文創商品可折抵 50 元唷！'
       }
     },
     methods: {
