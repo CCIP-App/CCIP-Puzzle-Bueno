@@ -1,13 +1,16 @@
 <template>
   <div id='Counter'>
     <qrcode-reader :enable="true" :width="qrcodeSize.width" :height="qrcodeSize.height" :noResult="true" title="" subTitle="" @OnSuccess="OnSuccess" class="pa-3"></qrcode-reader>
-    <v-row>
+    <v-row v-if="!isAndroid">
       <v-btn block primary dark class="mt-4 mb-3 mr-3 ml-3" @click.native="closeCounter">關閉計算器</v-btn>
     </v-row>
     <v-container fluid>
       <v-row class="pa-3">
         <div role="messages">
           <p>掃描不同夥伴的 QR Code 可以統計夥伴們的程式碼拼圖總數量</p>
+          <template v-if="partner.nickname.length > 0">
+            <p>已經計算了：{{ partnerName }}的拼圖</p>
+          </template>
         </div>
       </v-row>
       <v-row>
@@ -27,7 +30,11 @@
     name: 'Counter',
     data() {
       return {
-        token: '',
+        isAndroid: false,
+        partner: {
+          token: [],
+          nickname: []
+        },
         puzzle: [],
         qrcodeSize: {
           width: '80vw',
@@ -47,13 +54,17 @@
           }
           return pv
         }, [])
+      },
+      partnerName: function() {
+        return this.partner.nickname.join('、')
       }
     },
     methods: {
       OnSuccess(result) {
-        if (result !== this.token) {
-          this.token = result
+        if (this.partner.token.indexOf(result) < 0) {
+          this.partner.token.push(result)
           this.loadPuzzle(Util.sha1Gen(result))
+          this.loadNickname(result)
         }
       },
       loadPuzzle(token) {
@@ -64,8 +75,20 @@
           self.$vuetify.toast.create(...['Token 無法辨識', 'bottom'])
         })
       },
+      loadNickname(token) {
+        var self = this
+        api.getNickname(token).then((res) => {
+          self.partner.nickname.push(res.nickname)
+        }).catch((error) => {
+          self.$vuetify.toast.create(...['Token 無法辨識', 'bottom'])
+        })
+      },
       closeCounter() {
         window.history.back()
+      },
+      detectOS() {
+        var userAgent = navigator.userAgent || navigator.vendor || window.opera
+        if (/android/i.test(userAgent)) this.isAndroid = true
       }
     },
     mounted() {
@@ -84,6 +107,7 @@
     },
     beforeMount() {
       if (window.innerWidth > 500) this.qrcodeSize = {width: '480px', height: '360px'}
+      this.detectOS()
     }
   }
 </script>
