@@ -125,7 +125,8 @@ export default {
     margin: auto
     min-height: 118px
     background: url('~public/uploadfile.png')
-    background-size: cover
+    background-size: contain
+    background-repeat: no-repeat
   }
 
   #upload {
