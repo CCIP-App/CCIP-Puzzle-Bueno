@@ -1,11 +1,8 @@
 <template>
-  <div id="Footer" class="mt-3">
-    <a href="https://github.com/CCIP-App/CCIP-Puzzle-Bueno/" target="_blank" alt="Source code on GitHub" class="mr-2">
-      <v-chip v-model="chip" class="primary white--text">
-        <img src="~public/GitHub-Mark-Light-32px.png" width="16" height="16">
-        <span class="pl-2">GitHub</span>
-      </v-chip>
-    </a>
+  <div id="Footer">
+    <div class="content">
+      <a href="https://github.com/CCIP-App/CCIP-Puzzle-Bueno/" target="_blank" alt="Source code on GitHub"><span class="fillet-label">GitHub</span></a>
+    </div>
   </div>
 </template>
 
@@ -21,6 +18,36 @@ export default {
 </script>
 
 <style lang="stylus">
-  #Footer
-    text-align: center
+@import "../stylus/_global/_variable"
+#Footer
+  overflow-x: hidden
+  overflow-y: scroll
+  -webkit-overflow-scrolling: touch
+
+  z-index: 0
+  width: 100vw
+  min-height: 1500px
+  position: absolute
+  bottom: auto
+  left: 0
+
+  display: flex
+  align-items: flex-end
+  justify-content: flex-start
+  background-size: cover
+  background-repeat: no-repeat
+  background-image: url('~public/footer.png')
+  background-position: center bottom
+
+  @media only screen and (max-width: $mobile-screen-width)
+    min-height: 700px
+  
+  .content
+    margin: 2em 1em
+
+  .fillet-label
+    background-color: rgba(0, 0, 0, .5)
+  a
+    color: #fff
+    text-decoration: none
 </style>
