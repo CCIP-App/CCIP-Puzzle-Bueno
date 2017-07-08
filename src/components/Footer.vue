@@ -20,31 +20,8 @@ export default {
 <style lang="stylus">
 @import "../stylus/_global/_variable"
 #Footer
-  overflow-x: hidden
-  overflow-y: scroll
-  -webkit-overflow-scrolling: touch
-
-  z-index: 0
-  width: 100vw
-  min-height: 1500px
-  position: absolute
-  bottom: auto
-  left: 0
-
-  display: flex
-  align-items: flex-end
-  justify-content: flex-start
-  background-size: cover
-  background-repeat: no-repeat
-  background-image: url('~public/footer.png')
-  background-position: center bottom
-
-  @media only screen and (max-width: $mobile-screen-width)
-    min-height: 700px
-  
   .content
-    margin: 2em 1em
-
+    padding: 2em
   .fillet-label
     background-color: rgba(0, 0, 0, .5)
   a
