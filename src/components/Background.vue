@@ -7,9 +7,6 @@
         <div class="layer-2 layer"></div>
         <div class="layer-3 layer"></div>
       </div>
-      <div id="hero-mobile">
-        <img src="~public/sub-mb-bg.png" />
-      </div>
     </div>
   </div>
 </template>
@@ -22,64 +19,43 @@ export default {
 }
 </script>
 
-<style lang="stylus">
+<style lang="stylus" scoped>
 @import "../stylus/_global/_variable"
 
 .subpage--banner
-  width: 100vw
-  height: 100vh
-  z-index: -1
-  position: absolute
-  top: 0
-  left: 0
+  width: 100%
 
-  $bronze: #fff
-  $white: #fff
-  $black: #50514F
-
-  #hero
-    overflow: hidden
+  #hero, .layer
+    z-index: -1
+    min-height: 912px
     position: absolute
+    top: 0
+    left: 0
+    @media screen and (max-width: $mobile-screen-width)
+      min-height: 550px
+  #hero
     width: 100%
     height: 100%
-    top: 0
-    left: 0
-  
-  #hero, .layer
-    min-height: 1024px
-  
-  .layer
-    background-position: bottom center
-    background-size: auto
-    background-repeat: no-repeat
-    width: 100%
-    height: $heroHeight
-    position: absolute
-    z-index: -1
-
-  #hero-mobile
-    position: absolute
-    top: 0
-    left: 0
-    z-index: -1
-    width: 100%
-    height: 700px
-    display: none
-    img
+    transform: translateX(-7.5%) scale(1.15)
+    
+    .layer
       width: 100%
-      height: auto
+      height: $heroHeight
+      position: absolute
+      z-index: -1
 
-  .layer-bg
-    background-size: cover
-    background-repeat: no-repeat
-    background-image: url('~public/sub-bg.png')
+    .layer-bg
+      background-size: cover
+      background-repeat: no-repeat
+      background-image: url('~public/sub-bg.png')
+      background-position: center bottom
 
-  .layer-2
-    background-image: url('~public/sub-dot.png')
-    background-size: cover
-    background-repeat: no-repeat
+    .layer-2
+      background-image: url('~public/sub-dot.png')
+      background-size: cover
+      background-repeat: no-repeat
+      background-position: center bottom
+    
 
-  @media only screen and (max-width: $mobile-screen-width)
-    #hero, .layer
-      min-height: 550px
+
 </style>
