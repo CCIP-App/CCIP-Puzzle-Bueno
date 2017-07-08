@@ -1,11 +1,6 @@
 <template>
-  <div role="chip">
-    <v-card role="chip-card">
-      <v-card-text class="cardContent">
-        <p class="spinner ma-0">{{ displayName }}</p>
-      </v-card-text>
-    </v-card>
-    <v-chip role="chip-count" class="primary white--text">{{ count }}</v-chip>
+  <div role="chip" :class="{ active: isActive }">
+    <img :src="logourl">
   </div>
 </template>
 
@@ -17,9 +12,18 @@ export default {
       type: String,
       default: ''
     },
-    count: {
-      type: Number,
-      default: 0
+    logoUri: {
+      type: String,
+      default: ''
+    },
+    isActive: {
+      type: Boolean,
+      default: false
+    }
+  },
+  computed: {
+    logourl() {
+      return window.devicePixelRatio && window.devicePixelRatio > 1 ? this.logoUri.replace(/.png$/, '@2x.png') : this.logoUri
     }
   },
   mounted() {
@@ -27,31 +31,27 @@ export default {
 }
 </script>
 
-<style lang="stylus">
-  .spinner
-    text-align: center
-    color: black
-    font-size: 1.5rem
-    overflow: hidden
-    word-wrap: break-word
-    overflow-wrap: break-word
-    @media screen and (max-width:500px)
-      font-size:1.2rem
-
-  .cardContent
-    margin: 0 auto
-
-  [role="chip-card"]
-    width: 100%
-    height: 100% !important
+<style lang="stylus" spcoed>
   [role="chip"]
-    padding: 1em
-    height: 100%
-  [role="chip-count"]
-    margin-top: -1em
-    margin-right: -0.5em
-    z-index: 999
-    font-size: 2rem
-    position: relative
-    float: right
+    @media screen and (max-width: 454px) // must bigger than 454px for two column
+      width: 80vw
+      height: 53.33vw
+      margin: 1em auto
+    display: block
+    background: #fff
+    border: 2px solid #fff
+    border-radius: 5px
+    padding: 10px
+    width: 195px
+    height: 130px
+    margin: .5em auto
+    box-shadow: 0 50px 50px rgba(0,0,0,.1)
+    &.active
+      img
+        filter: none
+    img
+      filter: opacity(.5)
+      max-width: 100%
+      max-height: 100%
+      
 </style>
