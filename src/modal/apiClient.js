@@ -1,10 +1,14 @@
 import axios from 'axios'
 import qs from 'qs'
 const defaults = {
-  baseURL: 'https://ccip.sitcon.org/'
+  baseURL: 'https://ccip.coscup.org/'
 }
 
 Object.assign(axios.defaults, defaults)
+
+export var getBoothList = () => {
+  return axios.get('/event/puzzle/deliverers').then((res) => res.data)
+}
 
 export var checkBoothToken = (boothToken) => {
   return axios.get('/event/puzzle/deliverer', {
