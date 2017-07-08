@@ -19,5 +19,13 @@ export default {
     var hashGen = crypto.createHash('sha1')
     hashGen.update(raw)
     return hashGen.digest('hex')
+  },
+
+  StringFormat() {
+    let formatString = arguments[0]
+    let args = Array.prototype.slice.call(arguments).slice(1)
+    return args.reduce(
+      (formatString, arg, i) => formatString.replace('${' + (i + 1) + '}', arg)
+    , formatString)
   }
 }
