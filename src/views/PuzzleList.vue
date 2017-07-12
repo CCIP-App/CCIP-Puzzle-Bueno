@@ -1,236 +1,245 @@
 <template>
   <div id='PuzzleList'>
-    <template v-if="showScanner">
-      <qrcode-reader :enable="showScanner" width="320px" height="240px" :noResult="true" title="" subTitle="掃描 QR Code 檢視拼圖清單" @OnSuccess="OnSuccess"></qrcode-reader>
-    </template>
-    <v-container fluid v-else-if="data !== null">
-      <v-row>
-        <v-col md8>
-          <p role="name">{{ name }}</p>
-          <blockquote>{{ valid }}<br>{{ coupon }}</blockquote>
-        </v-col>
-      </v-row>
-      <v-row class="pl-2 pr-2 mt-3 mb-3">
-        <v-btn block primary dark @click.native.stop="topic = !topic" class="mr-3">拼圖題目</v-btn>
-        <v-modal id="topic" v-model="topic">
-          <v-card>
-            <v-card-text>
-              <div role="close-modal">
-                <v-btn floating="floating" primary dark outline @click.native.stop="topic = !topic" class="mr-3">X</v-btn>
-              </div>
-              <iframe src="https://hackmd.io/s/rJxU4vzie"></iframe>
-            </v-card-text>
-          </v-card>
-        </v-modal>
-        <v-btn block primary dark @click.native.stop="help = !help" class="ml-3">規則說明</v-btn>
-        <v-modal id="help" v-model="help">
-          <v-card>
-            <v-card-text>
-              <div role="close-modal">
-                <v-btn floating="floating" primary dark outline @click.native.stop="help = !help" class="mr-3">X</v-btn>
-              </div>
-              <iframe src="https://hackmd.io/s/rJATGDGje"></iframe>
-            </v-card-text>
-          </v-card>
-        </v-modal>
-      </v-row>
-      <v-row class="pa-3" style="margin-top:-16px;">
-        <div role="messages" class="">
-          <p>{{ messages }}</p>
+    <div class="content--wrapper">
+      <div class="subPage">
+        <div class="mobile subpage--title">
+          <div class="title--text">{{ msgText[userLang].title }}</div>
         </div>
-      </v-row>
-      <v-row>
-        <v-col lg2="lg2" md4="md4" xs6="xs6" v-for="chip in chipsConuter" class="ma-0 pa-0">
-          <chip :displayName="chip.displayName" :count="chip.count"></chip>
-        </v-col>
-      </v-row>
-    </v-container>
-    <Footer />
+        <div class="desktop subpage--title">
+          <div class="title--text">
+            <div>{{ msgText['zh'].title }}</div>
+            <div class="divider"></div>
+            <div>{{ msgText['en'].title }}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <template v-if="showScanner">
+          <qrcode-reader :enable="showScanner" width="320px" height="240px" :noResult="true" title="" subTitle="掃描 QR Code 檢視集章冊" @OnSuccess="OnSuccess"></qrcode-reader>
+        </template>
+        <template v-else>
+          <div role="chips">
+            <div v-for="(sponsor, index) in sponsors" :key="index">
+                <chip :displayName="sponsor.name[userLang]" :logoUri="sponsor.logourl" :isActive="sponsor.active" >
+              </div>
+          </div>
+        </template>
+
+        <Footer />
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-  import * as api from '../modal/apiClient.js'
-  import Util from '../modal/util.js'
-  export default {
-    name: 'PuzzleList',
-    data() {
-      return {
-        data: null,
-        token: '',
-        topic: false,
-        help: false
-      }
-    },
-    computed: {
-      showScanner: function() {
-        return this.token === '' && this.data === null
+import * as api from '../modal/apiClient.js'
+import Util from '../modal/util.js'
+export default {
+  name: 'PuzzleList',
+  data() {
+    return {
+      data: {
+        user_id: 'Tests'
       },
-      chipsConuter: function() {
-        if (this.data === null) return
-        return this.data.puzzle.reduce((pv, cv) => {
-          var specialChip = pv.find((el) => el.displayName === cv)
-          if (specialChip === undefined) {
-            pv.push({ displayName: cv, count: 1 })
-          } else {
-            specialChip.count++
-          }
-          return pv
-        }, [])
-      },
-      name: function() {
-        if (this.data === null) return '不知道是和許人也(｡ ́︿ ̀｡)'
-        else return this.data.user_id + ' 的程式拼圖蒐集冊'
-      },
-      valid: function() {
-        if (this.data === null) return ''
-        else return '遊戲狀態: ' + (this.data.valid ? '已於 ' + new Date(this.data.valid * 1000).toLocaleString() + ' 完成程式碼拼圖' : '尚未完成')
-      },
-      coupon: function() {
-        if (this.data === null) return ''
-        else return '文創折價券: ' + (this.data.coupon ? '已於 ' + new Date(this.data.valid * 1000).toLocaleString() + ' 使用' : this.data.valid ? '尚未使用' : '未完成程式碼拼圖')
-      },
-      messages: function() {
-        return this.data.puzzle.length === 0 ? '還沒有收集到拼圖！偷偷告訴你一個小秘密：除了報到後可以取得兩片拼圖碎片，年會中各個攤位也可以取得拼圖碎片喔(￣▽￣)' : '完成程式碼拼圖後，購買 SITCON 文創商品可折抵 50 元唷！'
-      }
-    },
-    methods: {
-      OnSuccess(result) {
-        if (result !== this.token) {
-          window.location.search = 'token=' + Util.sha1Gen(result)
+      token: '',
+      msgText: {
+        'zh': {
+          title: '大地遊戲',
+          gameStatus: {
+            accomplished: '遊戲狀態：已於 ${1} 完成大地遊戲',
+            unfinished: '遊戲狀態：尚未完成大地遊戲'
+          },
+          tips: [
+            ''
+          ],
+          anonymousUser: '不知是何許人也',
+          someonesStampCard: '${1} 的集章冊'
+        },
+        'en': {
+          title: 'Field Game',
+          gameStatus: {
+            accomplished: 'Status: Clear on ${1}',
+            unfinished: 'Status: Not yet'
+          },
+          tips: [
+            ''
+          ],
+          anonymousUser: 'Anonymous',
+          someonesStampCard: '${1}\'s stamp collection'
         }
       },
-      loadPuzzle() {
-        var self = this
-        api.getPuzzle(this.token).then((res) => {
-          self.data = res.data
-        }).catch((error) => {
-          self.$vuetify.toast.create(...['Token 無法辨識', 'bottom'])
-          setTimeout(() => {
-            window.location.search = ''
-          }, 3 * 1000)
+      booth: [],
+      sponsorList: [{
+        level: '1',
+        place: '1',
+        logolink: 'http://careers.carousell.com/',
+        logourl: 'https://coscup.org/2017-assets/images/sponsor/carousell.png',
+        name: { zh: '旋轉拍賣', en: 'Carousell' }
+      },
+      {
+        level: '2',
+        place: '1',
+        logolink: 'http://www.appier.com/zh/',
+        logourl: 'https://coscup.org/2017-assets/images/sponsor/appier.png',
+        name: { zh: 'Appier', en: 'Appier' }
+      },
+      {
+        level: '2',
+        place: '2',
+        logolink: 'https://www.rayark.com/',
+        logourl: 'https://coscup.org/2017-assets/images/sponsor/rayark.png',
+        name: { zh: '雷亞遊戲 Rayark Inc.', en: 'Rayark Games' }
+      },
+      {
+        level: '2',
+        place: '3',
+        logolink: 'https://www.mysql.com/cn/',
+        logourl: 'https://coscup.org/2017-assets/images/sponsor/mysql.png',
+        name: { zh: 'MySQL', en: 'MySQL' }
+      },
+      {
+        level: '4',
+        place: '1',
+        logolink: 'https://skymizer.com/',
+        logourl: 'https://coscup.org/2017-assets/images/sponsor/skymizer.png',
+        name: { zh: 'Skymizer', en: 'Skymizer' }
+      },
+      {
+        level: '4',
+        place: '2',
+        logolink: 'https://www.unisharp.com',
+        logourl: 'https://coscup.org/2017-assets/images/sponsor/unisharp.png',
+        name: { zh: '悠夏爾科技', en: 'Unisharp' }
+      },
+      {
+        level: '4',
+        place: '3',
+        logolink: 'www.skymirror.com.tw',
+        logourl: 'https://coscup.org/2017-assets/images/sponsor/skymirror.png',
+        name: { zh: '天鏡科技', en: 'Skymirror' }
+      },
+      {
+        level: '4',
+        place: '4',
+        logolink: 'https://tmotx.com/',
+        logourl: 'https://coscup.org/2017-assets/images/sponsor/mutix.png',
+        name: { zh: '集界科技', en: 't, mot' }
+      },
+      {
+        level: '5',
+        place: '1',
+        logolink: 'http://ocf.tw/?gclid=CIvIraTImc4CFVcnvQodArsKnQ',
+        logourl: 'https://coscup.org/2017-assets/images/sponsor/ocf.png',
+        name: { zh: '財團法人開放文化基金會', en: 'OCF.tw' }
+      }]
+    }
+  },
+  computed: {
+    userLang: function () {
+      let lang = navigator.language || navigator.userLanguage
+      return lang.toLowerCase().includes('zh') ? 'zh' : 'en'
+    },
+    showScanner: function () {
+      console.log(this.token === '' && this.data === null)
+      return this.token === '' && this.data === null
+    },
+    name: function () {
+      if (this.data === null) return this.msgText[this.userLang].anonymousUser
+      else {
+        return Util.StringFormat(
+          this.msgText[this.userLang].someonesStampCard,
+          this.data.user_id
+        )
+      }
+    },
+    valid: function () {
+      if (this.data === null) return ''
+      else if (this.data.valid) return Util.StringFormat(
+        this.msgText[this.userLang].gameStatus.accomplished,
+        new Date(this.data.valid * 1000).toLocaleString()
+      )
+      else return this.msgText[this.userLang].gameStatus.unfinished
+    },
+    sponsors: function() {
+      return this.sponsorList
+        .filter((el) => this.booth.indexOf(el.name.en) >= 0)
+        .map((el) => {
+          el.active = this.data.deliverer ? this.data.deliverer.indexOf(el.name.en) >= 0 : false
+          return el
         })
+    }
+  },
+  methods: {
+    OnSuccess(result) {
+      if (result !== this.token) {
+        window.location.search = 'token=' + Util.sha1Gen(result)
       }
     },
-    beforeMount() {
-      var query = {}
-      if (window.location.search.length > 0 && (query = Util.parseQueryParams(window.location.search))) {
-        this.token = query.token
-        this.loadPuzzle()
-      }
+    loadPuzzle() {
+      var self = this
+      api.getPuzzle(this.token).then((res) => {
+        self.data = res.data
+      }).catch((error) => {
+        setTimeout(() => {
+          window.location.search = ''
+        }, 3 * 1000)
+      })
     },
-    mounted() {
-      var move = document.getElementById('PuzzleList')
-
-      move.addEventListener('touchstart', function() {
-        var top = move.scrollTop
-        var totalScroll = move.scrollHeight
-        var currentScroll = top + move.offsetHeight
-        if (top === 0) {
-          move.scrollTop = 1
-        } else if (currentScroll === totalScroll) {
-          move.scrollTop = top - 1
-        }
+    loadDeliverers() {
+      var self = this
+      api.getBoothList().then((res) => {
+        self.booth = res
       })
     }
+  },
+  beforeMount() {
+    var query = {}
+    if (window.location.search.length > 0 && (query = Util.parseQueryParams(window.location.search))) {
+      this.token = query.token
+      this.loadPuzzle()
+    }
+    this.loadDeliverers()
+  },
+  mounted() {
+    var move = document.getElementById('PuzzleList')
+
+    move.addEventListener('touchstart', function () {
+      var top = move.scrollTop
+      var totalScroll = move.scrollHeight
+      var currentScroll = top + move.offsetHeight
+      if (top === 0) {
+        move.scrollTop = 1
+      } else if (currentScroll === totalScroll) {
+        move.scrollTop = top - 1
+      }
+    })
   }
+}
 </script>
 
-<style lang="stylus">
-  html
-    overflow: hidden
-  body
-    overflow: hidden
-    background: transparent;
-    -webkit-tap-highlight-color: transparent;
-    -webkit-user-select: none;
-    -webkit-touch-callout: none;
-    height: 100%
-
-  #PuzzleList
-    transform: translateZ(0)
-    perspective: 1000
-    background-image: url('~public/background.jpg')
+<style lang="stylus" scoped>
+@import "../stylus/_global/_variable"
+#PuzzleList
+  .content
     background-size: cover
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    z-index: 0;
-
-    color: #FFF
-
-    overflow-x: hidden
-    overflow-y: scroll
-    -webkit-overflow-scrolling: touch
-
-    h2
-      color: #FFF
-
-    blockquote
-      font-size: 1.2rem
-      font-weight: 400
-
-    [role="name"]
-      font-size: 1.5rem
-
-    [role="messages"]
-      background: #FFF
-      opacity: .7
-      z-index: 1
-      border: 1px
-      border-radius: 2px
-      width: 100%
-      @media screen and (max-width: 500px)
-        max-width: 400px
-        margin: auto
-      > p
-        padding: 10px
-        z-index: 2
-        color: #000
-        font-size: 1rem
-        margin: 0
-
-    .sitcon-btn
+    background-repeat: no-repeat
+    background-image: url('~public/footer.png')
+    background-position: center top
+  [role="chips"]
+    display: flex
+    justify-content: space-between
+    align-items: center
+    flex-wrap: wrap
+    padding: 0 1em
+    @media screen and (max-width: 666px) and (orientation: landscape) // smaller than iPhone 6
+      padding: 0 3em
+    @media screen and (max-width: 454px) // must bigger than 454px for two column
+      margin: 0 auto
       display: block
-      width: 100%
-      height: 50px
-      color: white
-      text-decoration: none
-      background-color: rgb(225,45,147)
-      cursor: pointer
-      text-align: center
-      line-height: 50px
-      font-size: 1.2rem
-    .sitcon-btn:hover
-      background-color: rgb(228,0,126)
-
-    .modal--active
-      max-height: 82vh
-      @media screen and (max-width: 500px)
-        width: 100vw
-        height: 100vh
-        max-width: 100vw
-        max-height: 100vh
-        overflow-y: scroll
-        overflow-x: hidden
-
-    iframe
-      width: 75vw
-      height: 80vh
-      border:none
-      @media screen and (max-width: 500px)
-        padding-right: 5vw
-        width: 100vw
-        height: 100vh
-
-    [role="close-modal"]
-      position: absolute
-      background-color: #FFF
-      float: right
-      right: 0
-      z-index: 999
-
+    > div
+      @media screen and (min-width: 1024px)
+        min-width: 25%
+      padding: 0 .5em
 
 </style>
