@@ -1,10 +1,26 @@
 <template>
   <div id='Booth'>
-    <qrcode-reader class="scanner" v-if="boothToken!==''" :enable="qrState" width="400px" height="300px" :noResult="true" :title="'程式碼拼圖發放'" :subTitle="'攤位：' +boothName" @OnSuccess="OnSuccess"></qrcode-reader>
-    <div role="messages">
-      <p :class="{ 'red--text': alertError, 'green--text': alertSuccess }">{{ alertMessages }}</p>
+    <div class="content--wrapper">
+      <div class="subPage">
+        <div class="mobile subpage--title">
+          <div class="title--text">開源巔峰挑戰賽 - 攤位端</div>
+        </div>
+        <div class="desktop subpage--title">
+          <div class="title--text">
+            <div>開源巔峰挑戰賽 - 攤位端</div>
+            <div class="divider"></div>
+            <div>Booth Reward Activity - Booth</div>
+          </div>
+        </div>
+      </div>
+      <div class="content">
+        <qrcode-reader class="scanner" v-if="boothToken!==''" :enable="qrState" width="400px" height="300px" :noResult="true" :title="'攤位：' +boothName" @OnSuccess="OnSuccess"></qrcode-reader>
+        <div role="messages">
+          <p :class="{ 'red--text': alertError, 'green--text': alertSuccess }">{{ alertMessages }}</p>
+        </div>
+        <Footer />
+      </div>
     </div>
-    <Footer />
   </div>
 </template>
 
@@ -32,14 +48,14 @@
           api.grantPuzzle(this.boothToken, result).then((res) => {
             return api.getNickname(result)
           }).then((res) => {
-            self.alertMessages = '成功拼圖發送給 ' + res.nickname +' (・ω・)ノ'
+            self.alertMessages = '成功幫 ' + res.nickname +'蓋章囉 (・ω・)ノ'
             self.alertSuccess = true
             self.alertError = false
           }).catch((error) => {
             if (error.response) {
               switch (error.response.data.message) {
                 case 'Already take from this deliverer':
-                  self.alertMessages = '已經領過拼圖囉(￣▽￣)'
+                  self.alertMessages = '已經蓋過章囉(￣▽￣)'
                   break
                 case 'invalid receiver token':
                   self.alertMessages = '條碼好像不正確(⊙ω⊙)'
@@ -78,9 +94,13 @@
 
 <style lang="stylus">
 #Booth
-  background-size: cover
-  background-repeat: no-repeat
-  background-image: url('~public/footer.png')
-  background-position: center bottom
+  .content
+    min-height: 212px
+    background-size: cover
+    background-repeat: no-repeat
+    background-image: url('~public/footer.png')
+    background-position: center top
+  [role="messages"]
+    text-align: center
 
 </style>
