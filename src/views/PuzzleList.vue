@@ -164,7 +164,7 @@ export default {
       return this.sponsorList
         .filter((el) => this.booth.indexOf(el.name.en) >= 0)
         .map((el) => {
-          el.active = this.data.deliverer ? this.data.deliverer.indexOf(el.name.en) >= 0 : false
+          el.active = this.data && this.data.deliverer ? this.data.deliverer.indexOf(el.name.en) >= 0 : false
           return el
         })
     }
