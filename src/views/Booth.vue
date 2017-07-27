@@ -1,7 +1,7 @@
 <template>
   <div id='Booth'>
     <qrcode-reader class="scanner" v-if="boothToken!==''" :enable="qrState" width="400px" height="300px" :noResult="true" :title="'程式碼拼圖發放'" :subTitle="'攤位：' +boothName" @OnSuccess="OnSuccess"></qrcode-reader>
-    <div role="messages" class="mt-3">
+    <div role="messages">
       <p :class="{ 'red--text': alertError, 'green--text': alertSuccess }">{{ alertMessages }}</p>
     </div>
     <Footer />
@@ -64,7 +64,6 @@
           self.boothToken = query.token
           self.boothName = res.data.display_name
         }).catch((error) => {
-          self.$vuetify.toast.create(...['登入失敗，請檢查連結Token是否正確？', 'bottom'])
           setTimeout(() => {
             self.$router.replace('/')
           }, 10 * 1000)
@@ -78,28 +77,10 @@
 </script>
 
 <style lang="stylus">
-  #Booth
-    height: 100vh
-    width: 100%
-    background-image: url('~public/background.jpg')
-    background-repeat: repeat-y
-    background-size: cover
-    color: #FFF
-    h2
-      color: #FFF
-
-    [role="messages"]
-      background: #FFF
-      opacity: .7
-      z-index: 1
-      max-width: 400px
-      margin: auto
-      border: 1px
-      border-radius: 5px
-      > p
-        padding: 10px
-        z-index: 2
-        color: #000
-        font-size: 1.5rem
+#Booth
+  background-size: cover
+  background-repeat: no-repeat
+  background-image: url('~public/footer.png')
+  background-position: center bottom
 
 </style>

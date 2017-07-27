@@ -5,7 +5,7 @@
       <p v-if="subTitle !== '' ">{{ subTitle }}</p>
       <div v-if="webrtc" id="camsource" :style="{ width: width, height: height}"></div>
       <div v-else id="uploadField">
-        <label id="uploadButton" for="upload">
+        <label id="uploadButton" for="upload" />
         <input type="file" id="upload" @change="uploadChange">
       </div>
       <h6 class="ma-0" v-if=" !noResult ">{{ result }}</h6>
@@ -108,8 +108,8 @@ export default {
 
 <style lang="stylus">
   #camsource {
-    background: #FFF
-    border: 2px solid #FFF
+    background: rgb(254, 239, 209)
+    border: 2px solid rgb(254, 239, 209)
     border-radius: 15px
     padding: 10px
   }

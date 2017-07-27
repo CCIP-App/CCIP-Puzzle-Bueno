@@ -1,6 +1,7 @@
 <template>
   <div role="chip" :class="{ active: isActive }">
     <img :src="logourl">
+    <div role="seal"></div>
   </div>
 </template>
 
@@ -46,9 +47,24 @@ export default {
     height: 130px
     margin: .5em auto
     box-shadow: 0 50px 50px rgba(0,0,0,.1)
+    [role="seal"]
+      display: none
     &.active
-      img
-        filter: none
+      [role="seal"]
+        display: block
+        position: relative
+        top: -86px
+        background-image: url('~public/seal.png')
+        background-repeat: no-repeat
+        background-size: contain
+        background-position: center
+        width: 171px
+        height: 102px
+        
+      background-image: url('~public/seal_background.png')
+      background-repeat: no-repeat
+      background-size: contain
+      background-position: center
     img
       filter: opacity(.5)
       max-width: 100%

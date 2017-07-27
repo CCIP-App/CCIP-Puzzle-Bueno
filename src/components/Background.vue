@@ -5,7 +5,6 @@
         <div class="layer-bg layer"></div>
         <div class="layer-1 layer"></div>
         <div class="layer-2 layer"></div>
-        <div class="layer-3 layer"></div>
       </div>
     </div>
   </div>
@@ -27,20 +26,19 @@ export default {
 
   #hero, .layer
     z-index: -1
-    min-height: 912px
+    min-height: 712px
     position: absolute
     top: 0
     left: 0
     @media screen and (max-width: $mobile-screen-width)
       min-height: 550px
   #hero
-    width: 100%
-    height: 100%
+    width: 100vw
+    height: 100vh
     transform: translateX(-7.5%) scale(1.15)
     
     .layer
       width: 100%
-      height: $heroHeight
       position: absolute
       z-index: -1
 

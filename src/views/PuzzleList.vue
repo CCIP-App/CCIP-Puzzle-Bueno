@@ -39,16 +39,14 @@ export default {
   name: 'PuzzleList',
   data() {
     return {
-      data: {
-        user_id: 'Tests'
-      },
+      data: null,
       token: '',
       msgText: {
         'zh': {
-          title: '大地遊戲',
+          title: '開源巔峰挑戰賽',
           gameStatus: {
-            accomplished: '遊戲狀態：已於 ${1} 完成大地遊戲',
-            unfinished: '遊戲狀態：尚未完成大地遊戲'
+            accomplished: '遊戲狀態：已於 ${1} 完成開源巔峰挑戰賽',
+            unfinished: '遊戲狀態：尚未完成開源巔峰挑戰賽'
           },
           tips: [
             ''
@@ -57,7 +55,7 @@ export default {
           someonesStampCard: '${1} 的集章冊'
         },
         'en': {
-          title: 'Field Game',
+          title: 'Booth Reward Activity',
           gameStatus: {
             accomplished: 'Status: Clear on ${1}',
             unfinished: 'Status: Not yet'
@@ -70,69 +68,71 @@ export default {
         }
       },
       booth: [],
-      sponsorList: [{
-        level: '1',
-        place: '1',
-        logolink: 'http://careers.carousell.com/',
-        logourl: 'https://coscup.org/2017-assets/images/sponsor/carousell.png',
-        name: { zh: '旋轉拍賣', en: 'Carousell' }
-      },
-      {
-        level: '2',
-        place: '1',
-        logolink: 'http://www.appier.com/zh/',
-        logourl: 'https://coscup.org/2017-assets/images/sponsor/appier.png',
-        name: { zh: 'Appier', en: 'Appier' }
-      },
-      {
-        level: '2',
-        place: '2',
-        logolink: 'https://www.rayark.com/',
-        logourl: 'https://coscup.org/2017-assets/images/sponsor/rayark.png',
-        name: { zh: '雷亞遊戲 Rayark Inc.', en: 'Rayark Games' }
-      },
-      {
-        level: '2',
-        place: '3',
-        logolink: 'https://www.mysql.com/cn/',
-        logourl: 'https://coscup.org/2017-assets/images/sponsor/mysql.png',
-        name: { zh: 'MySQL', en: 'MySQL' }
-      },
-      {
-        level: '4',
-        place: '1',
-        logolink: 'https://skymizer.com/',
-        logourl: 'https://coscup.org/2017-assets/images/sponsor/skymizer.png',
-        name: { zh: 'Skymizer', en: 'Skymizer' }
-      },
-      {
-        level: '4',
-        place: '2',
-        logolink: 'https://www.unisharp.com',
-        logourl: 'https://coscup.org/2017-assets/images/sponsor/unisharp.png',
-        name: { zh: '悠夏爾科技', en: 'Unisharp' }
-      },
-      {
-        level: '4',
-        place: '3',
-        logolink: 'www.skymirror.com.tw',
-        logourl: 'https://coscup.org/2017-assets/images/sponsor/skymirror.png',
-        name: { zh: '天鏡科技', en: 'Skymirror' }
-      },
-      {
-        level: '4',
-        place: '4',
-        logolink: 'https://tmotx.com/',
-        logourl: 'https://coscup.org/2017-assets/images/sponsor/mutix.png',
-        name: { zh: '集界科技', en: 't, mot' }
-      },
-      {
-        level: '5',
-        place: '1',
-        logolink: 'http://ocf.tw/?gclid=CIvIraTImc4CFVcnvQodArsKnQ',
-        logourl: 'https://coscup.org/2017-assets/images/sponsor/ocf.png',
-        name: { zh: '財團法人開放文化基金會', en: 'OCF.tw' }
-      }]
+      sponsorList: [
+        {
+          level: '1',
+          place: '1',
+          logolink: 'http://careers.carousell.com/',
+          logourl: 'https://coscup.org/2017-assets/images/sponsor/carousell.png',
+          name: { zh: '旋轉拍賣', en: 'Carousell' }
+        },
+        {
+          level: '2',
+          place: '1',
+          logolink: 'http://www.appier.com/zh/',
+          logourl: 'https://coscup.org/2017-assets/images/sponsor/appier.png',
+          name: { zh: 'Appier', en: 'Appier' }
+        },
+        {
+          level: '2',
+          place: '2',
+          logolink: 'https://www.rayark.com/',
+          logourl: 'https://coscup.org/2017-assets/images/sponsor/rayark.png',
+          name: { zh: '雷亞遊戲 Rayark Inc.', en: 'Rayark Games' }
+        },
+        {
+          level: '2',
+          place: '3',
+          logolink: 'https://www.mysql.com/cn/',
+          logourl: 'https://coscup.org/2017-assets/images/sponsor/mysql.png',
+          name: { zh: 'MySQL', en: 'MySQL' }
+        },
+        {
+          level: '4',
+          place: '1',
+          logolink: 'https://skymizer.com/',
+          logourl: 'https://coscup.org/2017-assets/images/sponsor/skymizer.png',
+          name: { zh: 'Skymizer', en: 'Skymizer' }
+        },
+        {
+          level: '4',
+          place: '2',
+          logolink: 'https://www.unisharp.com',
+          logourl: 'https://coscup.org/2017-assets/images/sponsor/unisharp.png',
+          name: { zh: '悠夏爾科技', en: 'Unisharp' }
+        },
+        {
+          level: '4',
+          place: '3',
+          logolink: 'www.skymirror.com.tw',
+          logourl: 'https://coscup.org/2017-assets/images/sponsor/skymirror.png',
+          name: { zh: '天鏡科技', en: 'Skymirror' }
+        },
+        {
+          level: '4',
+          place: '4',
+          logolink: 'https://tmotx.com/',
+          logourl: 'https://coscup.org/2017-assets/images/sponsor/mutix.png',
+          name: { zh: '集界科技', en: 't, mot' }
+        },
+        {
+          level: '5',
+          place: '1',
+          logolink: 'http://ocf.tw/?gclid=CIvIraTImc4CFVcnvQodArsKnQ',
+          logourl: 'https://coscup.org/2017-assets/images/sponsor/ocf.png',
+          name: { zh: '財團法人開放文化基金會', en: 'OCF.tw' }
+        }
+      ]
     }
   },
   computed: {
@@ -141,7 +141,6 @@ export default {
       return lang.toLowerCase().includes('zh') ? 'zh' : 'en'
     },
     showScanner: function () {
-      console.log(this.token === '' && this.data === null)
       return this.token === '' && this.data === null
     },
     name: function () {
@@ -221,7 +220,9 @@ export default {
 <style lang="stylus" scoped>
 @import "../stylus/_global/_variable"
 #PuzzleList
+  min-height: 712px
   .content
+    min-height: 212px
     background-size: cover
     background-repeat: no-repeat
     background-image: url('~public/footer.png')
