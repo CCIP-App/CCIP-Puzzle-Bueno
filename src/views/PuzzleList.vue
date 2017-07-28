@@ -157,6 +157,14 @@ export default {
         move.scrollTop = top - 1
       }
     })
+
+    var query = {}
+
+    if (window.location.search.length > 0 
+      && (query = Util.parseQueryParams(window.location.search)) 
+      && query.mode === 'app') {
+      document.getElementsByClassName('subPage')[0].classList.toggle('hidden')
+    }
   }
 }
 </script>
@@ -165,6 +173,8 @@ export default {
 @import "../stylus/_global/_variable"
 #PuzzleList
   min-height: 712px
+  .subPage.hidden + .content
+    margin-top: 3rem
   .content
     min-height: 212px
     background-size: cover
