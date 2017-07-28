@@ -1,7 +1,8 @@
 <template>
   <div id="Footer">
     <div class="content">
-      <a href="https://github.com/CCIP-App/CCIP-Puzzle-Bueno/" target="_blank" alt="Source code on GitHub"><span class="fillet-label">GitHub</span></a>
+      COSCUP 2017 | Fork on 
+      <a href="https://github.com/CCIP-App/CCIP-Puzzle-Bueno/" target="_blank" alt="Source code on GitHub">GitHub</a>
     </div>
   </div>
 </template>
@@ -20,11 +21,17 @@ export default {
 <style lang="stylus">
 @import "../stylus/_global/_variable"
 #Footer
+  display: flex
+  justify-content: center
+  align-items: flex-end
+  flex-grow: 1
+  min-height: 212px
+  background-size: cover
+  background-repeat: no-repeat
+  background-image: url('~public/footer.png')
+  background-position: center top
   .content
     padding: 2em
   .fillet-label
     background-color: rgba(0, 0, 0, .5)
-  a
-    color: #fff
-    text-decoration: none
 </style>

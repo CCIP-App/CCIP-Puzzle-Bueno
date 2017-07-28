@@ -34,7 +34,6 @@ export default {
       min-height: 550px
   #hero
     width: 100vw
-    height: 100vh
     transform: translateX(-7.5%) scale(1.15)
     
     .layer

@@ -26,9 +26,9 @@
           </div>
         </template>
 
-        <Footer />
       </div>
     </div>
+    <Footer />
   </div>
 </template>
 
@@ -172,15 +172,11 @@ export default {
 <style lang="stylus" scoped>
 @import "../stylus/_global/_variable"
 #PuzzleList
-  min-height: 712px
+  display: flex
+  flex-direction: column
+  min-height: 100vh
   .subPage.hidden + .content
     margin-top: 3rem
-  .content
-    min-height: 212px
-    background-size: cover
-    background-repeat: no-repeat
-    background-image: url('~public/footer.png')
-    background-position: center top
   [role="chips"]
     display: flex
     justify-content: space-between
