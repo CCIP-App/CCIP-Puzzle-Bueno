@@ -18,9 +18,9 @@
         <div role="messages">
           <p :class="{ 'red--text': alertError, 'green--text': alertSuccess }">{{ alertMessages }}</p>
         </div>
-        <Footer />
       </div>
     </div>
+    <Footer />
   </div>
 </template>
 
@@ -94,12 +94,9 @@
 
 <style lang="stylus">
 #Booth
-  .content
-    min-height: 212px
-    background-size: cover
-    background-repeat: no-repeat
-    background-image: url('~public/footer.png')
-    background-position: center top
+  min-height: 100vh
+  display: flex
+  flex-direction: column
   [role="messages"]
     text-align: center
 
