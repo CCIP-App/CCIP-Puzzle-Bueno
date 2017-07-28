@@ -11,7 +11,7 @@ export var getBoothList = () => {
 }
 
 export var getSponsorList = () => {
-  return axios.get('http://coscup.org/2017-assets/json/sponsor.json')
+  return axios.get('https://coscup.org/2017-assets/json/sponsor.json')
     .then((res) => res.data.reduce((pv, el) => {
       return pv.concat(el.data)
     }, []))
