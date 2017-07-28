@@ -55,18 +55,20 @@ export default {
       [role="seal"]
         display: block
         position: relative
-        top: -155px
-        left: 135px
+        top: -135px
+        left: 140px
         background-image: url('~public/seal.png')
         background-repeat: no-repeat
         background-size: contain
         background-position: center
-        width: 90px
-        height: 90px
+        width: 60px
+        height: 60px
 
         @media screen and (max-width: 454px)
           top: -53.33vw
           left: 60vw
+          width: 90px
+          height: 90px
   
     img
       max-width: 100%
