@@ -50,23 +50,25 @@ export default {
     [role="seal"]
       display: none
     &.active
+      border: 2px dashed rgba(0, 0, 0, 0.2)
+      box-shadow: none
       [role="seal"]
         display: block
         position: relative
-        top: -86px
+        top: -155px
+        left: 135px
         background-image: url('~public/seal.png')
         background-repeat: no-repeat
         background-size: contain
         background-position: center
-        width: 171px
-        height: 102px
-        
-      background-image: url('~public/seal_background.png')
-      background-repeat: no-repeat
-      background-size: contain
-      background-position: center
+        width: 90px
+        height: 90px
+
+        @media screen and (max-width: 454px)
+          top: -53.33vw
+          left: 60vw
+  
     img
-      filter: opacity(.5)
       max-width: 100%
       max-height: 100%
       
