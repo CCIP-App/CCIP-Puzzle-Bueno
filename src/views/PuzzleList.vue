@@ -68,71 +68,7 @@ export default {
         }
       },
       booth: [],
-      sponsorList: [
-        {
-          level: '1',
-          place: '1',
-          logolink: 'http://careers.carousell.com/',
-          logourl: 'https://coscup.org/2017-assets/images/sponsor/carousell.png',
-          name: { zh: '旋轉拍賣', en: 'Carousell' }
-        },
-        {
-          level: '2',
-          place: '1',
-          logolink: 'http://www.appier.com/zh/',
-          logourl: 'https://coscup.org/2017-assets/images/sponsor/appier.png',
-          name: { zh: 'Appier', en: 'Appier' }
-        },
-        {
-          level: '2',
-          place: '2',
-          logolink: 'https://www.rayark.com/',
-          logourl: 'https://coscup.org/2017-assets/images/sponsor/rayark.png',
-          name: { zh: '雷亞遊戲 Rayark Inc.', en: 'Rayark Games' }
-        },
-        {
-          level: '2',
-          place: '3',
-          logolink: 'https://www.mysql.com/cn/',
-          logourl: 'https://coscup.org/2017-assets/images/sponsor/mysql.png',
-          name: { zh: 'MySQL', en: 'MySQL' }
-        },
-        {
-          level: '4',
-          place: '1',
-          logolink: 'https://skymizer.com/',
-          logourl: 'https://coscup.org/2017-assets/images/sponsor/skymizer.png',
-          name: { zh: 'Skymizer', en: 'Skymizer' }
-        },
-        {
-          level: '4',
-          place: '2',
-          logolink: 'https://www.unisharp.com',
-          logourl: 'https://coscup.org/2017-assets/images/sponsor/unisharp.png',
-          name: { zh: '悠夏爾科技', en: 'Unisharp' }
-        },
-        {
-          level: '4',
-          place: '3',
-          logolink: 'www.skymirror.com.tw',
-          logourl: 'https://coscup.org/2017-assets/images/sponsor/skymirror.png',
-          name: { zh: '天鏡科技', en: 'Skymirror' }
-        },
-        {
-          level: '4',
-          place: '4',
-          logolink: 'https://tmotx.com/',
-          logourl: 'https://coscup.org/2017-assets/images/sponsor/mutix.png',
-          name: { zh: '集界科技', en: 't, mot' }
-        },
-        {
-          level: '5',
-          place: '1',
-          logolink: 'http://ocf.tw/?gclid=CIvIraTImc4CFVcnvQodArsKnQ',
-          logourl: 'https://coscup.org/2017-assets/images/sponsor/ocf.png',
-          name: { zh: '財團法人開放文化基金會', en: 'OCF.tw' }
-        }
-      ]
+      sponsorList: []
     }
   },
   computed: {
@@ -190,6 +126,12 @@ export default {
       api.getBoothList().then((res) => {
         self.booth = res
       })
+    },
+    loadSponsor() {
+      var self = this
+      api.getSponsorList().then((res) => {
+        self.sponsorList = res
+      })
     }
   },
   beforeMount() {
@@ -198,7 +140,9 @@ export default {
       this.token = query.token
       this.loadPuzzle()
     }
+    this.loadSponsor()
     this.loadDeliverers()
+    
   },
   mounted() {
     var move = document.getElementById('PuzzleList')

@@ -10,6 +10,20 @@ export var getBoothList = () => {
   return axios.get('/event/puzzle/deliverers').then((res) => res.data)
 }
 
+export var getSponsorList = () => {
+  return axios.get('http://coscup.org/2017-assets/json/sponsor.json')
+    .then((res) => res.data.reduce((pv, el) => {
+      return pv.concat(el.data)
+    }, []))
+    .then((res) => res.map((el) => ({
+      level: el.level,
+      place: el.place,
+      logolink: el.logolink,
+      logourl: el.logourl,
+      name: el.name
+    })))
+}
+
 export var checkBoothToken = (boothToken) => {
   return axios.get('/event/puzzle/deliverer', {
     params: {
