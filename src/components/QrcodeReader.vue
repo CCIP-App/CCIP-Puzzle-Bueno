@@ -115,7 +115,7 @@ export default {
     width: 80vw
     height: 60vw
     max-width: 320px
-    max-hieght: 240px
+    max-height: 240px
 
   #uploadField
     max-width: 300px
