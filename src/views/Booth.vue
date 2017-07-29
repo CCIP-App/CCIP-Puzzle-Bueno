@@ -136,5 +136,8 @@
       max-height: 100%
       margin: 0 auto
   .subPage
-    min-height: 75px
+    min-height: 200px
+    justify-content: flex-end
+    @media screen and (max-width: 454px)
+      min-height: 75px
 </style>
