@@ -2,8 +2,8 @@
   <div id='QrcodeReader'>
     <center>
       <h2 class="ma-0" v-if=" title != '' ">{{ title }}</h2>
-      <p v-if="subTitle !== '' ">{{ subTitle }}</p>
-      <div v-if="webrtc" id="camsource" :style="{ width: width, height: height}"></div>
+      <p role="subTitle" v-if="subTitle !== '' ">{{ subTitle }}</p>
+      <div v-if="webrtc" id="camsource"></div>
       <div v-else id="uploadField">
         <label id="uploadButton" for="upload" />
         <input type="file" id="upload" @change="uploadChange">
@@ -107,29 +107,37 @@ export default {
 </script>
 
 <style lang="stylus">
-  #camsource {
+  #camsource
     background: rgb(254, 239, 209)
     border: 2px solid rgb(254, 239, 209)
     border-radius: 15px
     padding: 10px
-  }
+    width: 80vw
+    height: 60vw
+    max-width: 320px
+    max-hieght: 240px
 
-  #uploadField {
+  #uploadField
     max-width: 300px
-  }
+    @media screen and (max-width: 454px) // must bigger than 454px for two column
+      max-width: 150px
 
-  #uploadButton {
+  #uploadButton
     cursor: pointer
     z-index: 1
     display: block
     margin: auto
-    min-height: 118px
+    min-height: 300px
+    @media screen and (max-width: 454px) // must bigger than 454px for two column
+      min-height: 150px
     background: url('~public/uploadfile.png')
-    background-size: contain
+    background-size: cover
     background-repeat: no-repeat
-  }
+    background-position: center
 
-  #upload {
+  #upload
     display: none
-  }
+
+  [role="subTitle"]
+    margin-bottom: 3rem
 </style>

@@ -16,7 +16,7 @@
 
       <div class="content">
         <template v-if="showScanner">
-          <qrcode-reader :enable="showScanner" width="320px" height="240px" :noResult="true" title="" subTitle="掃描 QR Code 檢視集章冊" @OnSuccess="OnSuccess"></qrcode-reader>
+          <qrcode-reader :enable="showScanner" :noResult="true" title="" subTitle="掃描 QR Code 檢視集章冊" @OnSuccess="OnSuccess"></qrcode-reader>
         </template>
         <template v-else>
           <div role="chips">

@@ -14,7 +14,8 @@
         </div>
       </div>
       <div class="content">
-        <qrcode-reader class="scanner" v-if="boothToken!==''" :enable="qrState" width="400px" height="300px" :noResult="true" :title="'攤位：' +boothName" @OnSuccess="OnSuccess"></qrcode-reader>
+        <div role="logo"><img alt="" :src="boothLogo"></div>
+        <qrcode-reader class="scanner" v-if="boothToken!==''" :enable="qrState" width="400px" height="300px" :noResult="true" @OnSuccess="OnSuccess"></qrcode-reader>
         <div role="messages">
           <p :class="{ 'red--text': alertError, 'green--text': alertSuccess }">{{ alertMessages }}</p>
         </div>
@@ -37,7 +38,19 @@
         buffer: '',
         alertMessages: '攤位驗證成功，掃描 QR Code 即可發送程式碼拼圖',
         alertError: false,
-        alertSuccess: false
+        alertSuccess: false,
+        sponsorList: []
+      }
+    },
+    computed: {
+      boothLogo () {
+        var booth
+        if (this.boothName !== 'Unknow booth' &&
+          (booth = this.sponsorList.find((el) => el.name.en === this.boothName)) !== undefined ) {
+            return window.devicePixelRatio && window.devicePixelRatio > 1 ? 
+              booth.logourl.replace(/.png$/, '@2x.png') : booth.logourl
+          }
+        return ''
       }
     },
     methods: {
@@ -70,11 +83,20 @@
             self.alertSuccess = false
           })
         }
-      }
+      },
+      loadSponsor() {
+        var self = this
+        api.getSponsorList().then((res) => {
+          self.sponsorList = res
+        })
+      },
     },
     mounted() {
       var self = this
       var query = {}
+
+      this.loadSponsor()
+
       if (window.location.search.length > 0 && (query = Util.parseQueryParams(window.location.search))) {
         api.checkBoothToken(query.token).then((res) => {
           self.boothToken = query.token
@@ -99,5 +121,20 @@
   flex-direction: column
   [role="messages"]
     text-align: center
-
+  [role="logo"]
+    @media screen and (max-width: 454px) // must bigger than 454px for two column
+      width: 70vw
+      height: 46.66375vw
+      margin: 1em auto
+    display: block
+    padding: 10px
+    width: 350px
+    height: 200px
+    margin: .5em auto
+    img
+      max-width: 100%
+      max-height: 100%
+      margin: 0 auto
+  .subPage
+    min-height: 75px
 </style>

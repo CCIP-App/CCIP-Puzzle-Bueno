@@ -25,7 +25,6 @@ export default {
   justify-content: center
   align-items: flex-end
   flex-grow: 1
-  min-height: 212px
   background-size: cover
   background-repeat: no-repeat
   background-image: url('~public/footer.png')
