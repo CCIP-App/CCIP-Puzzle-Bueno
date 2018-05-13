@@ -3,13 +3,13 @@
     <div class="content--wrapper">
       <div class="subPage">
         <div class="mobile subpage--title">
-          <div class="title--text">開源巔峰挑戰賽 - 攤位端</div>
+          <div class="title--text">{{title.zh}} - 攤位端</div>
         </div>
         <div class="desktop subpage--title">
           <div class="title--text">
-            <div>開源巔峰挑戰賽 - 攤位端</div>
+            <div>{{title.zh}} - 攤位端</div>
             <div class="divider"></div>
-            <div>Booth Reward Activity - Booth</div>
+            <div>{{title.en}} - Booth</div>
           </div>
         </div>
       </div>
@@ -28,10 +28,12 @@
 <script>
   import * as api from '../modal/apiClient.js'
   import Util from '../modal/util.js'
+  import config from '../../config/config.json'
   export default {
     name: 'Booth',
     data() {
       return {
+        title: config.title,
         boothName: 'Unknow booth',
         boothToken: '',
         qrState: true,
@@ -43,13 +45,12 @@
       }
     },
     computed: {
-      boothLogo () {
-        var booth
-        if (this.boothName !== 'Unknow booth' &&
-          (booth = this.sponsorList.find((el) => el.name.en === this.boothName)) !== undefined ) {
-            return window.devicePixelRatio && window.devicePixelRatio > 1 ? 
-              booth.logourl.replace(/.png$/, '@2x.png') : booth.logourl
-          }
+      boothLogo() {
+        var booth = null
+        if (this.boothName !== 'Unknow booth' && (booth = this.sponsorList.find((el) => el.name.en === this.boothName)) !== undefined) {
+          // return window.devicePixelRatio && window.devicePixelRatio > 1 ? booth.logourl.replace(/.png$/, '@2x.png') : booth.logourl
+          return booth.logourl
+        }
         return ''
       }
     },
@@ -61,7 +62,7 @@
           api.grantPuzzle(this.boothToken, result).then((res) => {
             return api.getNickname(result)
           }).then((res) => {
-            self.alertMessages = '成功幫 ' + res.nickname +'蓋章囉 (・ω・)ノ'
+            self.alertMessages = '成功幫 ' + res.nickname + '蓋章囉 (・ω・)ノ'
             self.alertSuccess = true
             self.alertError = false
           }).catch((error) => {
@@ -77,7 +78,7 @@
                   self.alertMessages = '好像抓不到條碼(;´༎ຶД༎ຶ`)'
               }
             } else {
-              self.alertMessages = '網路可能出包了_(´ཀ`」 ∠)_'
+              self.alertMessages = '網路可能有問題了_(´ཀ`」 ∠)_'
             }
             self.alertError = true
             self.alertSuccess = false
@@ -89,7 +90,7 @@
         api.getSponsorList().then((res) => {
           self.sponsorList = res
         })
-      },
+      }
     },
     mounted() {
       var self = this

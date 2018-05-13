@@ -24,7 +24,8 @@ export default {
   },
   computed: {
     logourl() {
-      return window.devicePixelRatio && window.devicePixelRatio > 1 ? this.logoUri.replace(/.png$/, '@2x.png') : this.logoUri
+      // return window.devicePixelRatio && window.devicePixelRatio > 1 ? this.logoUri.replace(/.png$/, '@2x.png') : this.logoUri
+      return this.logoUri
     }
   },
   mounted() {
@@ -69,9 +70,9 @@ export default {
           left: 60vw
           width: 90px
           height: 90px
-  
+
     img
       max-width: 100%
       max-height: 100%
-      
+
 </style>

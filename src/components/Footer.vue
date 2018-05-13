@@ -1,17 +1,19 @@
 <template>
   <div id="Footer">
     <div class="content">
-      COSCUP 2017 | Fork on 
+      {{confName}} | Fork on
       <a href="https://github.com/CCIP-App/CCIP-Puzzle-Bueno/" target="_blank" alt="Source code on GitHub">GitHub</a>
     </div>
   </div>
 </template>
 
 <script>
+import config from '../../config/config.json'
 export default {
   name: 'Footer',
   data() {
     return {
+      confName: config.confName,
       chip: true
     }
   }

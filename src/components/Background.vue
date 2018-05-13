@@ -11,10 +11,7 @@
 </template>
 <script>
 export default {
-  name: 'Background',
-  mounted () {
-
-  }
+  name: 'Background'
 }
 </script>
 
@@ -35,7 +32,7 @@ export default {
   #hero
     width: 100vw
     transform: translateX(-7.5%) scale(1.15)
-    
+
     .layer
       width: 100%
       position: absolute
@@ -52,7 +49,7 @@ export default {
       background-size: cover
       background-repeat: no-repeat
       background-position: center bottom
-    
+
 
 
 </style>

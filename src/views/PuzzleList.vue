@@ -1,15 +1,15 @@
 <template>
   <div id='PuzzleList'>
     <div class="content--wrapper">
-      <div class="subPage">
-        <div class="mobile subpage--title">
-          <div class="title--text">{{ msgText[userLang].title }}</div>
+      <div class="subPage" :class="{hidden: hidden}">
+        <div class="subpage--title">
+          <div class="title--text">{{ title.zh }}</div>
         </div>
         <div class="desktop subpage--title">
           <div class="title--text">
-            <div>{{ msgText['zh'].title }}</div>
+            <div>{{ title.zh }}</div>
             <div class="divider"></div>
-            <div>{{ msgText['en'].title }}</div>
+            <div>{{ title.en }}</div>
           </div>
         </div>
       </div>
@@ -25,7 +25,6 @@
               </div>
           </div>
         </template>
-
       </div>
     </div>
     <Footer />
@@ -35,67 +34,69 @@
 <script>
 import * as api from '../modal/apiClient.js'
 import Util from '../modal/util.js'
+import config from '../../config/config.json'
 export default {
   name: 'PuzzleList',
   data() {
     return {
       data: null,
+      hidden: false,
       token: '',
-      msgText: {
-        'zh': {
-          title: '開源巔峰挑戰賽',
-          gameStatus: {
-            accomplished: '遊戲狀態：已於 ${1} 完成開源巔峰挑戰賽',
-            unfinished: '遊戲狀態：尚未完成開源巔峰挑戰賽'
-          },
-          tips: [
-            ''
-          ],
-          anonymousUser: '不知是何許人也',
-          someonesStampCard: '${1} 的集章冊'
-        },
-        'en': {
-          title: 'Booth Reward Activity',
-          gameStatus: {
-            accomplished: 'Status: Clear on ${1}',
-            unfinished: 'Status: Not yet'
-          },
-          tips: [
-            ''
-          ],
-          anonymousUser: 'Anonymous',
-          someonesStampCard: '${1}\'s stamp collection'
-        }
-      },
+      userLang: (navigator.language || navigator.userLanguage).toLowerCase().includes('zh') ? 'zh' : 'en',
+      title: config.title,
+      // msgText: {
+      //   'zh': {
+      //     gameStatus: {
+      //       accomplished: '遊戲狀態：已於 ${1} 完成開源巔峰挑戰賽',
+      //       unfinished: '遊戲狀態：尚未完成開源巔峰挑戰賽'
+      //     },
+      //     tips: [
+      //       ''
+      //     ],
+      //     anonymousUser: '不知是何許人也',
+      //     someonesStampCard: '${1} 的集章冊'
+      //   },
+      //   'en': {
+      //     gameStatus: {
+      //       accomplished: 'Status: Clear on ${1}',
+      //       unfinished: 'Status: Not yet'
+      //     },
+      //     tips: [
+      //       ''
+      //     ],
+      //     anonymousUser: 'Anonymous',
+      //     someonesStampCard: '${1}\'s stamp collection'
+      //   }
+      // },
       booth: [],
       sponsorList: []
     }
   },
   computed: {
-    userLang: function () {
-      let lang = navigator.language || navigator.userLanguage
-      return lang.toLowerCase().includes('zh') ? 'zh' : 'en'
-    },
-    showScanner: function () {
+    // userLang: function() {
+    //   let lang = navigator.language || navigator.userLanguage
+    //   return lang.toLowerCase().includes('zh') ? 'zh' : 'en'
+    // },
+    showScanner: function() {
       return this.token === '' && this.data === null
     },
-    name: function () {
-      if (this.data === null) return this.msgText[this.userLang].anonymousUser
-      else {
-        return Util.StringFormat(
-          this.msgText[this.userLang].someonesStampCard,
-          this.data.user_id
-        )
-      }
-    },
-    valid: function () {
-      if (this.data === null) return ''
-      else if (this.data.valid) return Util.StringFormat(
-        this.msgText[this.userLang].gameStatus.accomplished,
-        new Date(this.data.valid * 1000).toLocaleString()
-      )
-      else return this.msgText[this.userLang].gameStatus.unfinished
-    },
+    // name: function () {
+    //   if (this.data === null) return this.msgText[this.userLang].anonymousUser
+    //   else {
+    //     return Util.StringFormat(
+    //       this.msgText[this.userLang].someonesStampCard,
+    //       this.data.user_id
+    //     )
+    //   }
+    // },
+    // valid: function () {
+    //   if (this.data === null) return ''
+    //   else if (this.data.valid) return Util.StringFormat(
+    //     this.msgText[this.userLang].gameStatus.accomplished,
+    //     new Date(this.data.valid * 1000).toLocaleString()
+    //   )
+    //   else return this.msgText[this.userLang].gameStatus.unfinished
+    // },
     sponsors: function() {
       return this.sponsorList
         .filter((el) => this.booth.indexOf(el.name.en) >= 0)
@@ -138,34 +139,34 @@ export default {
     var query = {}
     if (window.location.search.length > 0 && (query = Util.parseQueryParams(window.location.search))) {
       this.token = query.token
+      this.hidden = query.mode === 'app'
       this.loadPuzzle()
     }
     this.loadSponsor()
     this.loadDeliverers()
-    
-  },
-  mounted() {
-    var move = document.getElementById('PuzzleList')
-
-    move.addEventListener('touchstart', function () {
-      var top = move.scrollTop
-      var totalScroll = move.scrollHeight
-      var currentScroll = top + move.offsetHeight
-      if (top === 0) {
-        move.scrollTop = 1
-      } else if (currentScroll === totalScroll) {
-        move.scrollTop = top - 1
-      }
-    })
-
-    var query = {}
-
-    if (window.location.search.length > 0 
-      && (query = Util.parseQueryParams(window.location.search)) 
-      && query.mode === 'app') {
-      document.getElementsByClassName('subPage')[0].classList.toggle('hidden')
-    }
   }
+  // mounted() {
+  //   // var move = document.getElementById('PuzzleList')
+
+  //   // move.addEventListener('touchstart', function () {
+  //   //   var top = move.scrollTop
+  //   //   var totalScroll = move.scrollHeight
+  //   //   var currentScroll = top + move.offsetHeight
+  //   //   if (top === 0) {
+  //   //     move.scrollTop = 1
+  //   //   } else if (currentScroll === totalScroll) {
+  //   //     move.scrollTop = top - 1
+  //   //   }
+  //   // })
+
+  //   // var query = {}
+
+  //   // if (window.location.search.length > 0
+  //   //   && (query = Util.parseQueryParams(window.location.search))
+  //   //   && query.mode === 'app') {
+  //   //   document.getElementsByClassName('subPage')[0].classList.toggle('hidden')
+  //   // }
+  // }
 }
 </script>
 

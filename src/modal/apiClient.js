@@ -1,7 +1,8 @@
 import axios from 'axios'
 import qs from 'qs'
+import config from '../../config/config.json'
 const defaults = {
-  baseURL: 'https://ccip.coscup.org/'
+  baseURL: config.serverUrl
 }
 
 Object.assign(axios.defaults, defaults)
@@ -11,7 +12,7 @@ export var getBoothList = () => {
 }
 
 export var getSponsorList = () => {
-  return axios.get('https://coscup.org/2017-assets/json/sponsor.json')
+  return axios.get(config.sponsorUrl)
     .then((res) => res.data.reduce((pv, el) => {
       return pv.concat(el.data)
     }, []))
