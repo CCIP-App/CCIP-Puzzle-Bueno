@@ -2,12 +2,12 @@
   <div id='QrcodeReader'>
     <center>
       <h2 class="ma-0" v-if=" title != '' ">{{ title }}</h2>
-      <p role="subTitle" v-if="subTitle !== '' ">{{ subTitle }}</p>
       <div v-if="webrtc" id="camsource"></div>
       <div v-else id="uploadField">
         <label id="uploadButton" for="upload" />
         <input type="file" id="upload" @change="uploadChange">
       </div>
+      <p role="subTitle" v-if="subTitle !== '' ">{{ subTitle }}</p>
       <h6 class="ma-0" v-if=" !noResult ">{{ result }}</h6>
     </center>
   </div>
@@ -108,8 +108,8 @@ export default {
 
 <style lang="stylus">
   #camsource
-    background: rgb(254, 239, 209)
-    border: 2px solid rgb(254, 239, 209)
+    background: #60a73080
+    border: 2px solid #60a7304f
     border-radius: 15px
     padding: 10px
     width: 80vw

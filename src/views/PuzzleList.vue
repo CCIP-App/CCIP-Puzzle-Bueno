@@ -176,6 +176,12 @@ export default {
   display: flex
   flex-direction: column
   min-height: 100vh
+  .subPage
+    background-color: rgba(66, 93, 79, 0.5)
+    color: white
+    padding: 15px
+    min-height 100px
+    margin-bottom 3rem
   .subPage.hidden + .content
     margin-top: 3rem
   [role="chips"]
