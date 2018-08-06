@@ -13,15 +13,12 @@ export var getBoothList = () => {
 
 export var getSponsorList = () => {
   return axios.get(config.sponsorUrl)
-    .then((res) => res.data.reduce((pv, el) => {
-      return pv.concat(el.data)
-    }, []))
-    .then((res) => res.map((el) => ({
+    .then((res) => res.data.sponsors.map((el) => ({
       level: el.level,
-      place: el.place,
-      logolink: el.logolink,
-      logourl: el.logourl,
-      name: el.name
+      logourl: 'https://api2018.coscup.org/' + el.image,
+      name: {
+        'en': el.name.trim()
+      }
     })))
 }
 

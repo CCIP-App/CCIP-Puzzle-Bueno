@@ -20,7 +20,7 @@ export default {
     setInterval(function () {
       rotateBg.style.transform = transform + ' rotate(' + deg + 'deg)'
       deg += step
-      console.log(deg)
+      // console.log(deg)
     }, 100)
 
     var incrStep = function () {
@@ -31,7 +31,7 @@ export default {
     }
 
     document.onkeydown = function (event) {
-      console.log(event.which)
+      // console.log(event.which)
       if (event.which === 39) incrStep()
       else if (event.which === 37) uncrStep()
     }
