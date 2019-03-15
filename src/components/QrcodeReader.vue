@@ -108,8 +108,8 @@ export default {
 
 <style lang="stylus">
   #camsource
-    background: #60a73080
-    border: 2px solid #60a7304f
+    background: #c9a474
+    border: 2px solid #c9a474
     border-radius: 15px
     padding: 10px
     width: 80vw

@@ -13,9 +13,8 @@ export var getBoothList = () => {
 
 export var getSponsorList = () => {
   return axios.get(config.sponsorUrl)
-    .then((res) => res.data.sponsors.map((el) => ({
-      level: el.level,
-      logourl: 'https://api2018.coscup.org/' + el.image,
+    .then((res) => res.data.map((el) => ({
+      logourl: 'https://sitcon.org/2019/static/img/sponsor/' + el.image,
       name: {
         'en': el.name.trim()
       }

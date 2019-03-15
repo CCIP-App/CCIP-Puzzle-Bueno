@@ -13,28 +13,28 @@
 export default {
   name: 'Background',
   mounted () {
-    var rotateBg = this.$el
-    var deg = 150
-    var step = 1
-    var transform = 'translateY(-132px)'
-    setInterval(function () {
-      rotateBg.style.transform = transform + ' rotate(' + deg + 'deg)'
-      deg += step
-      // console.log(deg)
-    }, 100)
+    // var rotateBg = this.$el
+    // var deg = 150
+    // var step = 1
+    // var transform = 'translateY(-132px)'
+    // setInterval(function () {
+    //   rotateBg.style.transform = transform + ' rotate(' + deg + 'deg)'
+    //   deg += step
+    //   // console.log(deg)
+    // }, 100)
 
-    var incrStep = function () {
-      step += 10
-    }
-    var uncrStep = function () {
-      step -= 10
-    }
+    // var incrStep = function () {
+    //   step += 10
+    // }
+    // var uncrStep = function () {
+    //   step -= 10
+    // }
 
-    document.onkeydown = function (event) {
-      // console.log(event.which)
-      if (event.which === 39) incrStep()
-      else if (event.which === 37) uncrStep()
-    }
+    // document.onkeydown = function (event) {
+    //   // console.log(event.which)
+    //   if (event.which === 39) incrStep()
+    //   else if (event.which === 37) uncrStep()
+    // }
   }
 }
 </script>
@@ -46,11 +46,11 @@ export default {
   left: 0px;
   right: 0px;
   bottom: 0px;
-  background-image: url('../assets/glow_web.png');
-  background-repeat: no-repeat;
-  background-size: auto 100%;
+  background-color #efe9dc
+  background-image: url('../assets/sitcon-home.png');
+  background-repeat: repeat;
+  background-size: 100%;
   background-position: center center;
-  transform: translateY(-132px) rotate(150deg);
   transition: all 2s;
   z-index -1
 

@@ -1,7 +1,10 @@
 <template>
   <div id='PuzzleList'>
     <div class="content--wrapper">
-      <div class="subPage" :class="{hidden: hidden}">
+      <div
+        class="subPage"
+        :class="{hidden: hidden}"
+      >
         <div class="subpage--title">
           <div class="title--text">{{ title.zh }}</div>
         </div>
@@ -15,14 +18,37 @@
       </div>
 
       <div class="content">
+        <p>SITCON 的參與者來自各地，今年更有來自多國、身懷絕技的業界與社群夥伴共襄盛舉。除了把握時間好好與他們聊聊外，據說每個攤位都隱藏了不為人知的秘密……？別忘了在年會當天打開 OPass「真．實境矩陣」，收集不同攤位的 QR Code 連成直線，就有機會兌換限量年會紀念品。連接你的節點，拯救我們的世界！</p>
         <template v-if="showScanner">
-          <qrcode-reader :enable="showScanner" :noResult="true" title="" subTitle="掃描 QR Code 檢視集章冊" @OnSuccess="OnSuccess"></qrcode-reader>
+          <qrcode-reader
+            :enable="showScanner"
+            :noResult="true"
+            title=""
+            subTitle="掃描 QR Code 檢視集章冊"
+            @OnSuccess="OnSuccess"
+          ></qrcode-reader>
         </template>
         <template v-else>
-          <div role="chips">
+          <!-- <div role="chips">
             <div v-for="(sponsor, index) in sponsors" :key="index">
               <chip :displayName="sponsor.name[userLang]" :logoUri="sponsor.logourl" :isActive="sponsor.active" />
             </div>
+          </div> -->
+          <div class="table">
+            <table>
+              <tr
+                v-for="i in range"
+                :key="'r'+i"
+              >
+                <td
+                  v-for="j in range"
+                  :key="'d'+j"
+                  :class="{ active: (table[i * 5 + j].element) ? table[i * 5 + j].element.active : false }"
+                >
+                  <img :src="(table[i * 5 + j].element) ? table[i * 5 + j].element.logourl : ''">
+                </td>
+              </tr>
+            </table>
           </div>
         </template>
       </div>
@@ -35,6 +61,8 @@
 import * as api from '../modal/apiClient.js'
 import Util from '../modal/util.js'
 import config from '../../config/project.json'
+import generateBingo from '../utils/generateBingo.js'
+
 export default {
   name: 'PuzzleList',
   data () {
@@ -42,7 +70,7 @@ export default {
       data: null,
       hidden: false,
       token: '',
-      userLang: (navigator.language || navigator.userLanguage).toLowerCase().includes('zh') ? 'zh' : 'en',
+      // userLang: (navigator.language || navigator.userLanguage).toLowerCase().includes('zh') ? 'zh' : 'en',
       title: config.title,
       // msgText: {
       //   'zh': {
@@ -69,7 +97,8 @@ export default {
       //   }
       // },
       booth: [],
-      sponsorList: []
+      sponsorList: [],
+      range: [0, 1, 2, 3, 4]
     }
   },
   computed: {
@@ -99,11 +128,17 @@ export default {
     // },
     sponsors: function () {
       return this.sponsorList
-        .filter((el) => this.booth.indexOf(el.name.en) >= 0)
-        .map((el) => {
-          el.active = this.data && this.data.deliverer ? this.data.deliverer.indexOf(el.name.en) >= 0 : false
+        .filter(el => this.booth.indexOf(el.name.en) >= 0)
+        .map(el => {
+          el.active =
+            this.data && this.data.deliverer
+              ? this.data.deliverer.indexOf(el.name.en) >= 0
+              : false
           return el
         })
+    },
+    table: function () {
+      return generateBingo(this.sponsors, [], this.token)
     }
   },
   methods: {
@@ -114,31 +149,37 @@ export default {
     },
     loadPuzzle () {
       var self = this
-      api.getPuzzle(this.token).then((res) => {
-        self.data = res.data
-      }).catch((error) => {
-        console.log(error)
-        setTimeout(() => {
-          window.location.search = ''
-        }, 3 * 1000)
-      })
+      api
+        .getPuzzle(this.token)
+        .then(res => {
+          self.data = res.data
+        })
+        .catch(error => {
+          console.log(error)
+          setTimeout(() => {
+            window.location.search = ''
+          }, 3 * 1000)
+        })
     },
     loadDeliverers () {
       var self = this
-      api.getBoothList().then((res) => {
+      api.getBoothList().then(res => {
         self.booth = res
       })
     },
     loadSponsor () {
       var self = this
-      api.getSponsorList().then((res) => {
+      api.getSponsorList().then(res => {
         self.sponsorList = res
       })
     }
   },
   beforeMount () {
     var query = {}
-    if (window.location.search.length > 0 && (query = Util.parseQueryParams(window.location.search))) {
+    if (
+      window.location.search.length > 0 &&
+      (query = Util.parseQueryParams(window.location.search))
+    ) {
       this.token = query.token
       this.hidden = query.mode === 'app'
       this.loadPuzzle()
@@ -173,31 +214,85 @@ export default {
 
 <style lang="stylus" scoped>
 #PuzzleList
-  display: flex
-  flex-direction: column
-  min-height: 100vh
+  display flex
+  flex-direction column
+  min-height 100vh
+
+  p
+    margin 5px auto
+    width 70%
+    color #604726
+    text-align left
+
+    @media screen and (max-width: 600px)
+      width 90%
+
   .subPage
-    background-color: rgba(66, 93, 79, 0.5)
-    color: white
-    padding: 15px
-    min-height 100px
-    margin-bottom 3rem
+    margin-bottom 1rem
+    padding 15px
+    background-color rgba(66, 93, 79, 0.5)
+    color white
+
   .subPage.hidden + .content
-    margin-top: 3rem
-  [role="chips"]
-    display: flex
-    justify-content: space-between
-    align-items: center
-    flex-wrap: wrap
-    padding: 0 1em
-    @media screen and (max-width: 666px) and (orientation: landscape) // smaller than iPhone 6
-      padding: 0 3em
-    @media screen and (max-width: 454px) // must bigger than 454px for two column
-      margin: 0 auto
-      display: block
+    margin-top 3rem
+
+  [role='chips']
+    display flex
+    flex-wrap wrap
+    justify-content space-between
+    align-items center
+    padding 0 1em
+
+    @media screen and (max-width: 666px) and (orientation: landscape)
+      padding 0 3em // smaller than iPhone 6
+
+    @media screen and (max-width: 454px)
+      display block
+      margin 0 auto // must bigger than 454px for two column
+
     > div
       @media screen and (min-width: 1024px)
-        min-width: 25%
-      padding: 0 .5em
+        min-width 25%
 
+      padding 0 0.5em
+
+  .content
+    .table
+      margin-top 12px
+      padding 18px 0
+      background-color rgb(217, 183, 139)
+      box-shadow 0 0 10px rgba(40, 40, 40, 0.5)
+
+      table
+        margin 0 auto
+        width 90%
+        border-collapse collapse
+
+        td
+          width 20%
+          border 3px solid rgb(136, 98, 52)
+          filter grayscale(0.9) blur(1px)
+
+          &.active
+            position relative
+            filter none
+            background-color #fff
+            box-shadow 0 0 10px rgba(40, 40, 40, 0.8)
+
+            &:before
+              position absolute
+              top 0
+              right 0
+              bottom 0
+              left 0
+              background-image url('../assets/meow.png')
+              background-position center
+              background-size auto 100%
+              background-repeat no-repeat
+              content ''
+              opacity 0.6
+
+          img
+            max-width 100%
+            width 100%
 </style>
