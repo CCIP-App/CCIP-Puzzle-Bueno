@@ -1,9 +1,9 @@
 {
-  "serverUrl": "https://ccip.sitcon.org/",
-  "sponsorUrl": "https://coscup.org/2017-assets/json/sponsor.json",
+  "serverUrl": "https://ccip.opass.app/",
+  "sponsorUrl": "https://sitcon.org/2019/static/json/sponsor.json",
   "title": {
-    "zh": "開源巔峰挑戰賽",
+    "zh": "真．實境矩陣",
     "en": "Booth Reward Activity"
   },
-  "confName": "COSCUP 2017"
+  "confName": "SITCON 2019"
 }

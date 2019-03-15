@@ -68,9 +68,16 @@ export default {
           left: 60vw
           width: 90px
           height: 90px
-
+    &:before
+      display: inline-block
+      vertical-align: middle
+      content: ''
+      height: 100%
+      width: 0px
     img
       max-width: 100%
       max-height: 100%
+      display: inline-block
+      vertical-align: middle
 
 </style>

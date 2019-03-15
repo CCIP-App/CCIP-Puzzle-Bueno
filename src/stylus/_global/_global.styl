@@ -5,19 +5,18 @@
 
 body
   font-family: 'Abel'
+  margin: 0
 
 .content--wrapper
   .subPage
-    min-height: 300px
     text-align: center
     display: flex
     flex-direction: column
     justify-content: center
     &.hidden
       display: none
-      
+
     @media screen and (max-width: $mobile-screen-width)
-      min-height: 150px
       justify-content: flex-start
     .mobile.subpage--title
       display: none
@@ -38,7 +37,7 @@ body
 
       @media screen and (max-width: $mobile-screen-width)
         display: none
-      
+
       .divider
         margin:  auto
         width: 50px

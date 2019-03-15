@@ -13,15 +13,11 @@ export var getBoothList = () => {
 
 export var getSponsorList = () => {
   return axios.get(config.sponsorUrl)
-    .then((res) => res.data.reduce((pv, el) => {
-      return pv.concat(el.data)
-    }, []))
-    .then((res) => res.map((el) => ({
-      level: el.level,
-      place: el.place,
-      logolink: el.logolink,
-      logourl: el.logourl,
-      name: el.name
+    .then((res) => res.data.map((el) => ({
+      logourl: 'https://sitcon.org/2019/static/img/sponsor/' + el.image,
+      name: {
+        'en': el.name.trim()
+      }
     })))
 }
 
