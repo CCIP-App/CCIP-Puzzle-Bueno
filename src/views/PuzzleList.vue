@@ -18,7 +18,6 @@
       </div>
 
       <div class="content">
-        <h3>真．實境矩陣</h3>
         <p>今年前來 SITCON 的社群與贊助商盛況空前！在各攤位出示你的 QR Code，集章湊齊指定數量的連線，就有機會把限量紀念品帶回家。ヽ(✿ﾟ▽ﾟ)ノ</p>
         <template v-if="showScanner">
           <qrcode-reader
