@@ -18,7 +18,9 @@
       </div>
 
       <div class="content">
-        <p>SITCON 的參與者來自各地，今年更有來自多國、身懷絕技的業界與社群夥伴共襄盛舉。除了把握時間好好與他們聊聊外，據說每個攤位都隱藏了不為人知的秘密……？<br>別忘了在年會當天打開 OPass「真．實境矩陣」，收集不同攤位的 QR Code 連成直線，就有機會兌換限量年會紀念品。連接你的節點，拯救我們的世界！</p>
+        <p>SITCON 的參與者來自各地，今年更有來自多國、身懷絕技的業界與社群夥伴共襄盛舉。除了把握時間好好與他們聊聊外，據說每個攤位都隱藏了不為人知的秘密……？
+          <br>別忘了在年會當天打開 OPass「真．實境矩陣」，收集不同攤位的 QR Code 連成直線，就有機會兌換限量年會紀念品。連接你的節點，拯救我們的世界！
+          <br><br>PS. SITCON 的 logo，請找有空的工作人員聊天認識一下，讓他幫你蓋個章！</p>
         <template v-if="showScanner">
           <qrcode-reader
             :enable="showScanner"
@@ -43,9 +45,10 @@
                 <td
                   v-for="j in range"
                   :key="'d'+j"
-                  :class="{ active: (table[i * 5 + j].element) ? table[i * 5 + j].element.active : false }"
+                  :class="{ active: (table[i * 5 + j].element) ? table[i * 5 + j].element.active : true }"
+                  :style="{ backgroundImage: `url(${(table[i * 5 + j].element) ? table[i * 5 + j].element.logourl : ''})` }"
+                  :data-text="(table[i * 5 + j].element && table[i * 5 + j].element.logourl === '') ? table[i * 5 + j].element.name.en : ''"
                 >
-                  <img :src="(table[i * 5 + j].element) ? table[i * 5 + j].element.logourl : ''">
                 </td>
               </tr>
             </table>
@@ -98,6 +101,40 @@ export default {
       // },
       booth: [],
       sponsorList: [],
+      communityList: [
+        {
+          name: { en: 'openSUSE Taiwan' },
+          logourl: ''
+        },
+        {
+          name: { en: 'SITCONxHK' },
+          logourl: require('@/assets/community/SITCONxHK.png')
+        },
+        {
+          name: { en: 'MozTW 摩茲台灣社群' },
+          logourl: ''
+        },
+        {
+          name: { en: 'Monospace 社群友善空間' },
+          logourl: ''
+        },
+        {
+          name: { en: '中央創遊' },
+          logourl: require('@/assets/community/NCUGC.png')
+        },
+        {
+          name: { en: '全球学生开源年会' },
+          logourl: ''
+        },
+        {
+          name: { en: 'MOPCON 行動科技年會' },
+          logourl: require('@/assets/community/mopcon.png')
+        },
+        {
+          name: { en: 'TDOHacker' },
+          logourl: require('@/assets/community/TDOH.png')
+        }
+      ],
       range: [0, 1, 2, 3, 4]
     }
   },
@@ -127,7 +164,34 @@ export default {
     //   else return this.msgText[this.userLang].gameStatus.unfinished
     // },
     sponsors: function () {
-      return this.sponsorList
+      return this.booth
+        .filter(el => this.communityList.find(ele => ele.name.en === el) === undefined)
+        .map(el => {
+          const sponsor = this.sponsorList.find(sponsor => sponsor.name.en === el)
+          return (sponsor) || {
+            name: {
+              en: el
+            },
+            logourl: ''
+          }
+        })
+        .map(el => {
+          el.active =
+            this.data && this.data.deliverer
+              ? this.data.deliverer.indexOf(el.name.en) >= 0
+              : false
+          return el
+        })
+        .map(el => {
+          if (el.name.en === '國網中心') {
+            el.logourl = require('@/assets/sponsors/nchc.png')
+            el.active = true
+          }
+          return el
+        })
+    },
+    communities: function () {
+      return this.communityList
         .filter(el => this.booth.indexOf(el.name.en) >= 0)
         .map(el => {
           el.active =
@@ -138,7 +202,7 @@ export default {
         })
     },
     table: function () {
-      return generateBingo(this.sponsors, [], this.token)
+      return generateBingo(this.sponsors, this.communities, this.token)
     }
   },
   methods: {
@@ -267,16 +331,31 @@ export default {
         margin 0 auto
         width 90%
         border-collapse collapse
+        table-layout fixed
 
         td
           width 20%
           border 3px solid rgb(136, 98, 52)
+          padding 0px
           filter grayscale(0.9) blur(1px)
+          vertical-align middle
+          background-size contain
+          background-position center
+          background-repeat no-repeat
+          padding-bottom 20%
+          position relative
+
+          &:after
+            content attr(data-text)
+            position absolute
+            top 50%
+            left 50%
+            transform translate(-50%, -50%)
 
           &.active
-            position relative
             filter none
             background-color #fff
+            background-clip padding-box
             box-shadow 0 0 10px rgba(40, 40, 40, 0.8)
 
             &:before
@@ -291,8 +370,4 @@ export default {
               background-repeat no-repeat
               content ''
               opacity 0.6
-
-          img
-            max-width 100%
-            width 100%
 </style>
