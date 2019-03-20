@@ -4,7 +4,7 @@ node_js:
 - '10'
 branches:
   only:
-  - sitcon
+  - master
 before_deploy:
   - yarn build
 deploy:
@@ -14,4 +14,4 @@ deploy:
   fqdn: puzzle.sitcon.party
   local_dir: dist/
   on:
-    branch: sitcon
+    branch: master
