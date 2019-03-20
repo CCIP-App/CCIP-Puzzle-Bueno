@@ -30,7 +30,7 @@ export var checkBoothToken = (boothToken) => {
 }
 
 export var grantPuzzle = (boothToken, clientToken) => {
-  return axios.post('/event/puzzle/deliver?token=' + boothToken, qs.stringify({receiver: clientToken}))
+  return axios.post('/event/puzzle/deliver?token=' + boothToken, qs.stringify({ receiver: clientToken }))
 }
 
 export var getPuzzle = (pubToken) => {

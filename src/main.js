@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import App from './App'
+import App from './App.vue'
 import router from './router'
 import Components from './components/_index'
 
@@ -9,9 +9,7 @@ Object.keys(Components).forEach(key => {
   Vue.component(key, Components[key])
 })
 
-/* eslint-disable no-new */
 new Vue({
-  el: '#app',
   router,
   render: h => h(App)
-})
+}).$mount('#app')
