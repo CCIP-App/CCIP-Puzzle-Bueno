@@ -65,7 +65,7 @@ export default {
         },
         {
           name: { en: '全球学生开源年会' },
-          logourl: require('@/assets/community/sosconf.svg')
+          logourl: require('@/assets/community/SOSCONF.png')
         },
         {
           name: { en: 'MOPCON 行動科技年會' },
