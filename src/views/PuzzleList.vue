@@ -104,7 +104,7 @@ export default {
       communityList: [
         {
           name: { en: 'openSUSE Taiwan' },
-          logourl: ''
+          logourl: require('@/assets/community/openSUSE_Taiwan.png')
         },
         {
           name: { en: 'SITCONxHK' },
@@ -112,11 +112,11 @@ export default {
         },
         {
           name: { en: 'MozTW 摩茲台灣社群' },
-          logourl: ''
+          logourl: require('@/assets/community/Moztwlogo.png')
         },
         {
           name: { en: 'Monospace 社群友善空間' },
-          logourl: ''
+          logourl: require('@/assets/community/monospace.png')
         },
         {
           name: { en: '中央創遊' },
@@ -124,7 +124,7 @@ export default {
         },
         {
           name: { en: '全球学生开源年会' },
-          logourl: ''
+          logourl: require('@/assets/community/sosconf.svg')
         },
         {
           name: { en: 'MOPCON 行動科技年會' },

@@ -41,13 +41,51 @@ export default {
       alertMessages: '攤位驗證成功，掃描 QR Code 即可發送程式碼拼圖',
       alertError: false,
       alertSuccess: false,
-      sponsorList: []
+      sponsorList: [],
+      communityList: [
+        {
+          name: { en: 'openSUSE Taiwan' },
+          logourl: require('@/assets/community/openSUSE_Taiwan.png')
+        },
+        {
+          name: { en: 'SITCONxHK' },
+          logourl: require('@/assets/community/SITCONxHK.png')
+        },
+        {
+          name: { en: 'MozTW 摩茲台灣社群' },
+          logourl: require('@/assets/community/Moztwlogo.png')
+        },
+        {
+          name: { en: 'Monospace 社群友善空間' },
+          logourl: require('@/assets/community/monospace.png')
+        },
+        {
+          name: { en: '中央創遊' },
+          logourl: require('@/assets/community/NCUGC.png')
+        },
+        {
+          name: { en: '全球学生开源年会' },
+          logourl: require('@/assets/community/sosconf.svg')
+        },
+        {
+          name: { en: 'MOPCON 行動科技年會' },
+          logourl: require('@/assets/community/mopcon.png')
+        },
+        {
+          name: { en: 'TDOHacker' },
+          logourl: require('@/assets/community/TDOH.png')
+        }
+      ]
     }
   },
   computed: {
     boothLogo () {
       var booth = null
       if (this.boothName !== 'Unknow booth' && (booth = this.sponsorList.find((el) => el.name.en === this.boothName)) !== undefined) {
+        // return window.devicePixelRatio && window.devicePixelRatio > 1 ? booth.logourl.replace(/.png$/, '@2x.png') : booth.logourl
+        return booth.logourl
+      }
+      if (this.boothName !== 'Unknow booth' && (booth = this.communityList.find((el) => el.name.en === this.boothName)) !== undefined) {
         // return window.devicePixelRatio && window.devicePixelRatio > 1 ? booth.logourl.replace(/.png$/, '@2x.png') : booth.logourl
         return booth.logourl
       }
@@ -128,7 +166,9 @@ export default {
       width: 70vw
       height: 46.66375vw
       margin: 1em auto
-    display: block
+    display: flex
+    align-items center
+    justify-content center
     padding: 10px
     width: 350px
     height: 200px
