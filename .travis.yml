@@ -11,6 +11,7 @@ deploy:
   provider: pages
   skip_cleanup: true
   github_token: $GITHUB_TOKEN
+  fqdn: puzzle.sitcon.party
   local_dir: dist/
   on:
     branch: sitcon
