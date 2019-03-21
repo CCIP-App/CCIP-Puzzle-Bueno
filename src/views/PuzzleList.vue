@@ -18,9 +18,16 @@
       </div>
 
       <div class="content">
-        <p>SITCON 的參與者來自各地，今年更有來自多國、身懷絕技的業界與社群夥伴共襄盛舉。除了把握時間好好與他們聊聊外，據說每個攤位都隱藏了不為人知的秘密……？
-          <br>別忘了在年會當天打開 OPass「真．實境矩陣」，收集不同攤位的 QR Code 連成直線，就有機會兌換限量年會紀念品。連接你的節點，拯救我們的世界！
-          <br><br>PS. SITCON 的 logo，請找有空的工作人員聊天認識一下，讓他幫你蓋個章！</p>
+        <p>SITCON 的參與者來自各地，今年更有來自多國、身懷絕技的業界與社群夥伴共襄盛舉。<br>除了把握時間好好與他們聊聊外，據說每個攤位都隱藏了不為人知的秘密……？
+          <br>別忘了在年會當天打開 OPass「真．實境矩陣」，到不同攤位蓋章並連成直線，就有機會兌換限量年會紀念品。連接你的節點，拯救我們的世界！
+        </p>
+        <ol>
+          <li>三條：折 20</li>
+          <li>五條：刺繡布章</li>
+          <li>七條：鑰匙圈</li>
+          <li>十條以上：大禮包<br> (鑰匙圈、提袋、刺繡布章) </li>
+        </ol>
+        <p>PS. SITCON 的 logo，請找有空的工作人員聊天認識一下，讓他幫你蓋個章！</p>
         <template v-if="showScanner">
           <qrcode-reader
             :enable="showScanner"
@@ -288,6 +295,13 @@ export default {
     color #604726
     text-align left
 
+    @media screen and (max-width: 600px)
+      width 90%
+
+  ol
+    margin 5px auto
+    width 70%
+    text-align left
     @media screen and (max-width: 600px)
       width 90%
 
