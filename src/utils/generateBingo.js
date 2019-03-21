@@ -1,13 +1,13 @@
-import crypto from 'crypto'
+import sha1 from 'hash.js/lib/hash/sha/1'
 
 // 5x5 grid; 0: sponsor; 1: community
 const patterns = [0b0010001010100010101000100, 0b1010001010000010101010000,
   0b1000100100010100010010001, 0b0010010001010101000100100]
 
-function md5Hash (token) {
-  var md5 = crypto.createHash('md5')
-  md5.update(token)
-  return md5.digest('hex')
+function sha1Hash (token) {
+  var hashGen = sha1()
+  hashGen.update(token)
+  return hashGen.digest('hex')
 }
 
 function hex2Dec (s, i) {
@@ -22,7 +22,7 @@ function swap (arr, a, b) {
 }
 
 export default function generateBingo (sponsors, communities, token) {
-  var hash = md5Hash(token)
+  var hash = sha1Hash(token)
 
   var shuffledSponsors = [...sponsors]
   for (let i = 0; i < 16; i++) swap(shuffledSponsors, hex2Dec(hash, i), 15)

@@ -1,4 +1,4 @@
-import crypto from 'crypto'
+import sha1 from 'hash.js/lib/hash/sha/1'
 
 export default {
   parseQueryParams (query) {
@@ -16,7 +16,7 @@ export default {
       }, {})
   },
   sha1Gen (raw) {
-    var hashGen = crypto.createHash('sha1')
+    var hashGen = sha1()
     hashGen.update(raw)
     return hashGen.digest('hex')
   },
