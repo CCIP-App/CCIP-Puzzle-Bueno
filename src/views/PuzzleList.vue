@@ -216,6 +216,12 @@ export default {
               : false
           return el
         })
+        .map(el => {
+          if (el.name.en === 'openSUSE Taiwan') {
+            el.active = true
+          }
+          return el
+        })
     },
     table: function () {
       return generateBingo(this.sponsors, this.communities, this.token)
