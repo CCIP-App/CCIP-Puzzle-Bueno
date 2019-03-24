@@ -200,6 +200,9 @@ export default {
             el.logourl = require('@/assets/sponsors/nchc.png')
             el.active = true
           }
+          if (el.name.en === '創代科技股份有限公司') {
+            el.active = true
+          }
           return el
         })
     },
