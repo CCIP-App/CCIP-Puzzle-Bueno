@@ -38,7 +38,7 @@ export default function generateBingo (sponsors, communities, token) {
   }
 
   // free space in the middle
-  grid[12] = { 'type': 'free_space' }
+  grid[12] = { 'type': 'free_space', 'element': { 'active': true, 'logourl': '', 'name': { en: '' } } }
 
   // fill the remaining with sponsors
   for (var i = 0; i < 25; i++) {

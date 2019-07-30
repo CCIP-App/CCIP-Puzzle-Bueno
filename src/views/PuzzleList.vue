@@ -45,7 +45,7 @@
                 <td
                   v-for="j in range"
                   :key="'d'+j"
-                  :class="{ active: (table[i * 5 + j].element) ? table[i * 5 + j].element.active : true }"
+                  :class="{ active: (table[i * 5 + j].element) ? table[i * 5 + j].element.active : false }"
                   :style="{ backgroundImage: `url(${(table[i * 5 + j].element) ? table[i * 5 + j].element.logourl : ''})` }"
                   :data-text="(table[i * 5 + j].element && table[i * 5 + j].element.logourl === '') ? table[i * 5 + j].element.name.en : ''"
                 >
