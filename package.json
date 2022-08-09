@@ -9,7 +9,7 @@
     "test": "echo 'No Test!'"
   },
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.21.2",
     "vue": "^2.6.6",
     "vue-router": "^3.0.1"
   },
